@@ -1,0 +1,32 @@
+{
+  "id": "nl.arnovanrossum.flashforge",
+  "version": "0.0.1",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "brandColor": "#00A0E9",
+  "name": {
+    "en": "FlashForge",
+    "nl": "FlashForge"
+  },
+  "description": {
+    "en": "Connect to your FlashForge Adventurer 3d printers",
+    "nl": "Verbind met je FlashForge Adventurer 3d printers"
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/flashforge_small.png",
+    "large": "/assets/images/flashforge_large.png",
+    "xlarge": "/assets/images/flashforge_xlarge.png"
+  },
+  "author": {
+    "name": "Arno van Rossum",
+    "email": "mail@arnovanrossum.nl"
+  }
+}

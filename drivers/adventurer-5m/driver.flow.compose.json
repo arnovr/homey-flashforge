@@ -1,0 +1,63 @@
+{
+  "triggers": [
+    {
+      "id": "measure_temperature_extruder_changed",
+      "title": {
+        "en": "Temperature for extruder changed",
+        "nl": "Temperatuur voor extruder veranderd"
+      },
+      "tokens": [
+        {
+          "name": "measure_temperature_extruder",
+          "type": "number",
+          "title": {
+            "en": "Extruder Temperature",
+            "nl": "Extruder Temperatuur"
+          },
+          "example": {
+            "en": "Extruder Temperature",
+            "nl": "Extruder Temperatuur"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measure_temperature_bed_changed",
+      "title": {
+        "en": "Temperature for bed changed",
+        "nl": "Temperatuur voor bed veranderd"
+      },
+      "tokens": [
+        {
+          "name": "measure_temperature_bed_changed",
+          "type": "number",
+          "title": {
+            "en": "Bed Temperature",
+            "nl": "Bed Temperatuur"
+          },
+          "example": {
+            "en": "Bed Temperature",
+            "nl": "Bed Temperatuur"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measure_print_percentage",
+      "title": {
+        "en": "Percentage for printing changed",
+        "nl": "Print voortgang veranderd"
+      },
+      "tokens": [
+        {
+          "name": "measure_print_percentage",
+          "type": "number",
+          "title": {
+            "en": "Print Percentage",
+            "nl": "Printer voortgang"
+          }
+        }
+      ]
+    }
+  ]
+}

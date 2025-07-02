@@ -1,0 +1,17 @@
+{
+  "id": "measure_temperature_extruder",
+  "type": "number",
+  "title": {
+    "en": "Extruder Temperature",
+    "nl": "Extruder Temperatuur"
+  },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "units": {
+    "en": "°C"
+  },
+  "min": 0,
+  "max": 300,
+  "step": 1
+}

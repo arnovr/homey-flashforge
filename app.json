@@ -1,0 +1,201 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "nl.arnovanrossum.flashforge",
+  "version": "0.0.1",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "brandColor": "#00A0E9",
+  "name": {
+    "en": "FlashForge",
+    "nl": "FlashForge"
+  },
+  "description": {
+    "en": "Connect to your FlashForge Adventurer 3d printers",
+    "nl": "Verbind met je FlashForge Adventurer 3d printers"
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/flashforge_small.png",
+    "large": "/assets/images/flashforge_large.png",
+    "xlarge": "/assets/images/flashforge_xlarge.png"
+  },
+  "author": {
+    "name": "Arno van Rossum",
+    "email": "mail@arnovanrossum.nl"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "measure_temperature_extruder_changed",
+        "title": {
+          "en": "Temperature for extruder changed",
+          "nl": "Temperatuur voor extruder veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_temperature_extruder",
+            "type": "number",
+            "title": {
+              "en": "Extruder Temperature",
+              "nl": "Extruder Temperatuur"
+            },
+            "example": {
+              "en": "Extruder Temperature",
+              "nl": "Extruder Temperatuur"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-5m"
+          }
+        ]
+      },
+      {
+        "id": "measure_temperature_bed_changed",
+        "title": {
+          "en": "Temperature for bed changed",
+          "nl": "Temperatuur voor bed veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_temperature_bed_changed",
+            "type": "number",
+            "title": {
+              "en": "Bed Temperature",
+              "nl": "Bed Temperatuur"
+            },
+            "example": {
+              "en": "Bed Temperature",
+              "nl": "Bed Temperatuur"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-5m"
+          }
+        ]
+      },
+      {
+        "id": "measure_print_percentage",
+        "title": {
+          "en": "Percentage for printing changed",
+          "nl": "Print voortgang veranderd"
+        },
+        "tokens": [
+          {
+            "name": "measure_print_percentage",
+            "type": "number",
+            "title": {
+              "en": "Print Percentage",
+              "nl": "Printer voortgang"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-5m"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Adventurer 5M",
+        "nl": "Adventurer 5M"
+      },
+      "class": "other",
+      "capabilities": [
+        "onoff",
+        "measure_temperature_bed",
+        "measure_temperature_extruder",
+        "measure_print_percentage"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/adventurer-5m/assets/images/flashforge_small.png",
+        "large": "/drivers/adventurer-5m/assets/images/flashforge_large.png",
+        "xlarge": "/drivers/adventurer-5m/assets/images/flashforge_xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "add_printer"
+        }
+      ],
+      "id": "adventurer-5m"
+    }
+  ],
+  "capabilities": {
+    "measure_print_percentage": {
+      "id": "measure_print_percentage",
+      "type": "number",
+      "title": {
+        "en": "Print percentage"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "measure_temperature_bed": {
+      "id": "measure_temperature_bed",
+      "type": "number",
+      "title": {
+        "en": "Bed Temperature",
+        "nl": "Bed Temperatuur"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "C"
+      },
+      "min": 0,
+      "max": 300,
+      "step": 1
+    },
+    "measure_temperature_extruder": {
+      "id": "measure_temperature_extruder",
+      "type": "number",
+      "title": {
+        "en": "Extruder Temperature",
+        "nl": "Extruder Temperatuur"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "°C"
+      },
+      "min": 0,
+      "max": 300,
+      "step": 1
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": {
+    "en": "Adventurer 5M",
+    "nl": "Adventurer 5M"
+  },
+  "class": "other",
+  "capabilities": [
+    "onoff",
+    "measure_temperature_bed",
+    "measure_temperature_extruder",
+    "measure_print_percentage"
+  ],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "/drivers/adventurer-5m/assets/images/flashforge_small.png",
+    "large": "/drivers/adventurer-5m/assets/images/flashforge_large.png",
+    "xlarge": "/drivers/adventurer-5m/assets/images/flashforge_xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "add_printer"
+    }
+  ]
+}

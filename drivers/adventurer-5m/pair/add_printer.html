@@ -1,0 +1,106 @@
+<script>
+  function isValidIP(ip) {
+    const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+    return ipRegex.test(ip);
+  }
+
+  function validateInput() {
+    const ipInput = document.getElementById('ip');
+    const addButton = document.getElementById('add-button');
+    const errorContainer = document.getElementById('ip-error');
+
+    const ip = ipInput.value.trim();
+
+    // Clear previous error
+    errorContainer.textContent = '';
+    ipInput.classList.remove('has-error');
+
+    if (!ip || !isValidIP(ip)) {
+      addButton.classList.add('is-disabled');
+      return false;
+    }
+
+    // IP is valid
+    addButton.classList.remove('is-disabled');
+    return true;
+  }
+
+  async function handleAddDevice(event) {
+    event.preventDefault();
+
+    const ipInput = document.getElementById('ip');
+    const addButton = document.getElementById('add-button');
+    const errorContainer = document.getElementById('ip-error');
+    const ip = ipInput.value.trim();
+
+    // Clear previous errors
+    errorContainer.textContent = '';
+    ipInput.classList.remove('has-error');
+
+    if (!validateInput()) {
+      ipInput.classList.add('has-error');
+      errorContainer.textContent = 'Please enter a valid IP address';
+      return;
+    }
+
+    addButton.classList.add('is-loading');
+
+    try {
+      Homey.emit('validate_ip', ip).then(async (printerName) => {
+        if (!printerName || printerName == "") {
+          ipInput.classList.add('has-error');
+          errorContainer.textContent = 'Device is not reachable at that IP address.';
+          addButton.classList.remove('is-loading');
+          return;
+        }
+
+        const deviceData = {
+          id: ip.replace(/\./g, '_'),
+          name: printerName,
+          data: { ip }
+        };
+
+        await Homey.createDevice(deviceData);
+        Homey.done();
+      }).catch((error) => {
+        ipInput.classList.add('has-error');
+        errorContainer.textContent = error.message || error.toString();
+        addButton.classList.remove('is-loading');
+      });
+    } catch (error) {
+      ipInput.classList.add('has-error');
+      errorContainer.textContent = error.message || error.toString();
+      addButton.classList.remove('is-loading');
+    }
+  }
+
+
+  document.getElementById('ip').addEventListener('input', validateInput);
+  document.getElementById('add-button').addEventListener('click', handleAddDevice);
+</script>
+
+
+<div>
+  <header class="homey-header">
+    <h1 class="homey-title" data-i18n="settings.title"></h1>
+    <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
+  </header>
+  <form class="homey-form">
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="ip" data-i18n="settings.ip_address"></label>
+      <input
+        class="homey-form-input"
+        id="ip"
+        name="ip"
+        placeholder="192.168.1.100"
+        type="text"
+      />
+      <div id="ip-error" class="homey-form-error" style="color: red; margin-top: 4px;"></div>
+    </div>
+    <button
+      id="add-button"
+      class="homey-button-primary-full is-disabled"
+      data-i18n="settings.add_device"
+    ></button>
+  </form>
+</div>
