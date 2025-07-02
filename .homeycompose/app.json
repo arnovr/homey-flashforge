@@ -1,11 +1,10 @@
 {
   "id": "nl.arnovanrossum.flashforge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
-    "local",
-    "cloud"
+    "local"
   ],
   "brandColor": "#00A0E9",
   "name": {
