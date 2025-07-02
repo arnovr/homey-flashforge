@@ -1,5 +1,5 @@
 {
-  "id": "measure_temperature_bed",
+  "id": "measure_temperature.bed",
   "type": "number",
   "title": {
     "en": "Bed Temperature",

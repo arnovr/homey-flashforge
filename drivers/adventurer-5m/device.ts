@@ -90,9 +90,9 @@ module.exports = class FlashForgeDevice extends Homey.Device {
 
       if (temp) {
         this.log("Set extruder temperature: " + temp?.getExtruderTemp()?.getCurrent());
-        this.setCapabilityValue('measure_temperature_extruder', temp?.getExtruderTemp()?.getCurrent());
+        this.setCapabilityValue('measure_temperature.extruder', temp?.getExtruderTemp()?.getCurrent());
         this.log("Set bed temperature: " + temp?.getBedTemp()?.getCurrent());
-        this.setCapabilityValue('measure_temperature_bed', temp?.getBedTemp()?.getCurrent());
+        this.setCapabilityValue('measure_temperature.bed', temp?.getBedTemp()?.getCurrent());
       }
 
 

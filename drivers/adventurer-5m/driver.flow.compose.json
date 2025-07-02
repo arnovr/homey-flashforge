@@ -1,14 +1,14 @@
 {
   "triggers": [
     {
-      "id": "measure_temperature_extruder_changed",
+      "id": "measure_temperature.extruder_changed",
       "title": {
         "en": "Temperature for extruder changed",
         "nl": "Temperatuur voor extruder veranderd"
       },
       "tokens": [
         {
-          "name": "measure_temperature_extruder",
+          "name": "measure_temperature.extruder",
           "type": "number",
           "title": {
             "en": "Extruder Temperature",
@@ -22,14 +22,14 @@
       ]
     },
     {
-      "id": "measure_temperature_bed_changed",
+      "id": "measure_temperature.bed_changed",
       "title": {
         "en": "Temperature for bed changed",
         "nl": "Temperatuur voor bed veranderd"
       },
       "tokens": [
         {
-          "name": "measure_temperature_bed_changed",
+          "name": "measure_temperature.bed_changed",
           "type": "number",
           "title": {
             "en": "Bed Temperature",

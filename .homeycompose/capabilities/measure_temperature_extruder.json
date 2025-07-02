@@ -1,5 +1,5 @@
 {
-  "id": "measure_temperature_extruder",
+  "id": "measure_temperature.extruder",
   "type": "number",
   "title": {
     "en": "Extruder Temperature",

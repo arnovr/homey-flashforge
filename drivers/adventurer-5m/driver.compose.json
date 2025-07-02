@@ -6,10 +6,24 @@
   "class": "other",
   "capabilities": [
     "onoff",
-    "measure_temperature_bed",
-    "measure_temperature_extruder",
+    "measure_temperature.bed",
+    "measure_temperature.extruder",
     "measure_print_percentage"
   ],
+  "capabilitiesOptions": {
+		"measure_temperature.bed": {
+			"title": {
+				"en": "Bed Temperature",
+				"nl": "Bed Temperatuur"
+			}
+		},
+		"measure_temperature.extruder": {
+			"title": {
+				"en": "Extruder Temperature",
+				"nl": "Extruder Temperatuur"
+			}
+		}
+  },
   "platforms": [
     "local"
   ],
