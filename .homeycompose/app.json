@@ -28,5 +28,8 @@
   "author": {
     "name": "Arno van Rossum",
     "email": "mail@arnovanrossum.nl"
-  }
+  },
+  "homepage": "https://github.com/arnovr/homey-flashforge",
+  "source": "https://github.com/arnovr/homey-flashforge",
+  "support": "https://github.com/arnovr/homey-flashforge/issues"
 }
