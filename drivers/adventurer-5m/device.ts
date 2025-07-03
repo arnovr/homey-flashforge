@@ -1,5 +1,5 @@
 import Homey from 'homey';
-import { FlashForgeClient } from './FlashForgeClient';
+import { FlashForgeClient, PrinterSettings } from './flashforge/FlashForgeClient';
 
 module.exports = class FlashForgeDevice extends Homey.Device {
   client: FlashForgeClient | undefined;
@@ -9,8 +9,13 @@ module.exports = class FlashForgeDevice extends Homey.Device {
     this.log('Initialize device');
     this.setCapabilityValue('onoff', false);
 
-    const ip = this.getData().ip || this.getSetting('ip');
-    this.client = new FlashForgeClient(ip);
+    const settings = this.getSettings() as PrinterSettings
+    const data = this.getData();
+
+    this.client = new FlashForgeClient({
+      ...settings,
+      serialNumber: data["serialNumber"] ?? ""
+    });
 
     await this.updateStatus();
 
@@ -65,7 +70,7 @@ module.exports = class FlashForgeDevice extends Homey.Device {
       }
 
       this.setCapabilityValue("measure_temperature.extruder", status.extruderTemp);
-      this.setCapabilityValue("measure_temperature.bed", status.bedTempRaw);
+      this.setCapabilityValue("measure_temperature.bed", status.bedTemp);
     } catch (error) {
       this.log("Error found, turn off and reset ( could be powered off printer )");
       this.setCapabilityValue("measure_print_percentage", 0);

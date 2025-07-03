@@ -1,0 +1,28 @@
+[
+    {
+        "id": "ipAddress",
+        "type": "text",
+        "label": {
+            "en": "IP Address",
+            "nl": "IP adres"
+        },
+        "value": "192.168.1.10",
+        "hint": {
+            "en": "This is the IP address of your printer.",
+            "nl": "Dit is het IP adres van je printer."
+        }
+    },
+    {
+        "id": "checkCode",
+        "type": "text",
+        "label": {
+            "en": "Printer ID",
+            "nl": "Printer ID"
+        },
+        "value": "2b80b80c",
+        "hint": {
+            "en": "This is your printer ID from the network tab, LAN mode enabled. This is needed for the newer API.",
+            "nl": "Dit is je printer-ID van het netwerktabblad, met LAN-modus ingeschakeld. Dit is nodig voor de nieuwere API."
+        }
+    }
+]
