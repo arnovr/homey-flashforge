@@ -1,11 +1,8 @@
 import Homey from 'homey';
 import PairSession from 'homey/lib/PairSession';
-import { FlashForgeClient } from 'ff-5mp-api-ts';
+import { FlashForgeClient } from './FlashForgeClient';
 
 module.exports = class Adventurer5M extends Homey.Driver {
-  /**
-   * onInit is called when the driver is initialized.
-   */
   async onInit() {
     this.log('Adventurer5M has been initialized');
   }
@@ -14,10 +11,7 @@ module.exports = class Adventurer5M extends Homey.Driver {
     session.setHandler("validate_ip", async (ip: string) => {
       try {
         const client = new FlashForgeClient(ip);
-        await client.initControl()
-        const x = await client.getPrinterInfo()
-        await client.stopKeepAlive(true);
-        return x?.TypeName ?? ""
+        return client.getPrinterName();
       }
       catch {
         return "";

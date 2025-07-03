@@ -47,6 +47,13 @@ export class FlashForgeClient {
     const printPercent = printStatus?.getPrintPercent();
     return typeof printPercent === 'number' && !isNaN(printPercent) && printPercent !== 100;
   }
+
+  async getPrinterName(): Promise<String> {
+    await this.client.initControl()
+    const x = await this.client.getPrinterInfo()
+    await this.client.stopKeepAlive(true);
+    return x?.TypeName ?? ""
+  }
 }
 
 export interface FlashForgeStatus {
