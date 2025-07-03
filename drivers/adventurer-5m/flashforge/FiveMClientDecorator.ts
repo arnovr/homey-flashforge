@@ -19,15 +19,32 @@ export class FiveMClientDecorator implements NormalizedPrinterClient {
 
       return {
         isPrinting: await this.isPrinting(),
-        printPercent: Math.round((detailResponse?.detail.printProgress ?? 0) * 100),
-        bedTemp: machineInfo?.PrintBed.current ?? 0,
-        extruderTemp: machineInfo?.Extruder.current ?? 0
+        printPercent: parseFloat(((detailResponse?.detail.printProgress ?? 0) * 100).toFixed(2)),
+        bedTemp: parseFloat(((machineInfo?.PrintBed.current ?? 0)).toFixed(2)),
+        extruderTemp: parseFloat(((machineInfo?.Extruder.current ?? 0)).toFixed(2)),
       };
     }
   
     async pause() {
+      // This gives error, MOST likely because the connection is killed to fast.
+      //{"serialNumber":"","checkCode":"","payload":{"cmd":"jobCtl_cmd","args":{"jobID":"","action":"pause"}}}
+        // sendCommand: ~M602
+        // CheckSocket()
+        // Command reply: {"code":0,"message":"Success"}
+        // Keep-alive stopped.
+        // TcpPrinterClient closing socket
+        // Keep-alive stopped.
+        // ReceiveMultiLineReplayAsync timed out after 5000ms
+        // /node_modules/ff-5mp-api-ts/dist/tcpapi/FlashForgeTcpClient.js:339
+        //                 this.socket.removeListener('data', dataHandler);
+        //                             ^
+
+        // TypeError: Cannot read properties of null (reading 'removeListener')
+        //     at cleanup (/node_modules/ff-5mp-api-ts/dist/tcpapi/FlashForgeTcpClient.js:339:29)
+
       return await this.client.jobControl.pausePrintJob();
     }
+    
   
     async resume() {
       return await this.client.jobControl.resumePrintJob();

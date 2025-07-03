@@ -69,6 +69,7 @@ module.exports = class FlashForgeDevice extends Homey.Device {
         this.setCapabilityValue("onoff", false);
       }
 
+      this.log("Temperatures: Bed: " + status.bedTemp + " , extruder: " + status.extruderTemp);
       this.setCapabilityValue("measure_temperature.extruder", status.extruderTemp);
       this.setCapabilityValue("measure_temperature.bed", status.bedTemp);
     } catch (error) {
