@@ -19,7 +19,7 @@ export class FiveMClientDecorator implements NormalizedPrinterClient {
 
       return {
         isPrinting: await this.isPrinting(),
-        printPercent: detailResponse?.detail.printProgress ?? 0,
+        printPercent: Math.round((detailResponse?.detail.printProgress ?? 0) * 100),
         bedTemp: machineInfo?.PrintBed.current ?? 0,
         extruderTemp: machineInfo?.Extruder.current ?? 0
       };
@@ -32,7 +32,8 @@ export class FiveMClientDecorator implements NormalizedPrinterClient {
     async resume() {
       return await this.client.jobControl.resumePrintJob();
     }
-  
+    
+
     async isPrinting(): Promise<boolean> {
       return await this.client.info.isPrinting();
     }
