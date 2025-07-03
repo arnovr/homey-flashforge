@@ -7,5 +7,8 @@
   },
   "0.0.3": {
     "en": "Removed cloud, as i am not eligable developer"
+  },
+  "0.0.4": {
+    "en": "Changed the capability names to be a temperature sensor with correct text"
   }
 }
