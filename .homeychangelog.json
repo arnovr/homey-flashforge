@@ -10,5 +10,11 @@
   },
   "0.0.4": {
     "en": "Changed the capability names to be a temperature sensor with correct text"
+  },
+  "0.0.5": {
+    "en": "Added the adventurer 3 and 4"
+  },
+  "0.0.6": {
+    "en": "Corrected the assets for the adventurer 3 and 4"
   }
 }

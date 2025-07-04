@@ -31,9 +31,9 @@
     "lan"
   ],
   "images": {
-    "small": "/drivers/adventurer-5m/assets/images/flashforge_small.png",
-    "large": "/drivers/adventurer-5m/assets/images/flashforge_large.png",
-    "xlarge": "/drivers/adventurer-5m/assets/images/flashforge_xlarge.png"
+    "small": "/drivers/adventurer-3-4/assets/images/flashforge_small.jpg",
+    "large": "/drivers/adventurer-3-4/assets/images/flashforge_large.jpg",
+    "xlarge": "/drivers/adventurer-3-4/assets/images/flashforge_xlarge.jpg"
   },
   "pair": [
     {

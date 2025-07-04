@@ -1,2 +1,2 @@
-The FlashForge app for homey allowes you to connect your Adventurer 5M 3D printer. You can view bed temperature, extruder temperature and print progress.
+The FlashForge app for homey allowes you to connect your Adventurer 3, 4, 5M or 5M Pro 3D printer. You can view bed temperature, extruder temperature and print progress.
 And if needed an option to stop or pause print jobs.
