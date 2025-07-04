@@ -1,5 +1,5 @@
 import Homey from 'homey';
-import { FlashForgeClient, PrinterSettings } from './api/FlashForgeClient';
+import { ConnectionFailedError, FlashForgeClient, PrinterSettings } from './api/FlashForgeClient';
 
 export class FlashForgeDevice extends Homey.Device {
   client: FlashForgeClient | undefined;
@@ -73,7 +73,11 @@ export class FlashForgeDevice extends Homey.Device {
       this.setCapabilityValue("measure_temperature.extruder", status.extruderTemp);
       this.setCapabilityValue("measure_temperature.bed", status.bedTemp);
     } catch (error) {
-      this.log("Error found, turn off and reset ( could be powered off printer )");
+      if (error instanceof ConnectionFailedError) {
+        this.log("Connection failed: printer might be powered off.");
+      } else {
+        this.log("Unexpected error, turn off and reset (could be powered off printer).");
+      }
       this.setCapabilityValue("measure_print_percentage", 0);
       this.setCapabilityValue("onoff", false);
     }
