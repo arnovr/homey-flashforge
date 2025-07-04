@@ -21,7 +21,7 @@ jobs:
           node-version: '18'
 
       - name: Install Homey CLI
-        run: npm install -g homey
+        run: npm install -g homey typescript 
 
       - name: Validate Homey App
         run: homey app validate --level publish
