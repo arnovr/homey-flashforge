@@ -1,3 +1,3 @@
-import { FlashForgeDriver } from '../../lib/flashforgedriver/FlashForgeDriver';
+import { FlashForgeManualDriver } from '../../lib/flashforgedriver/FlashForgeManualDriver';
 
-module.exports = class Adventurer34Driver extends FlashForgeDriver {};
+module.exports = class Adventurer34Driver extends FlashForgeManualDriver {};

@@ -34,7 +34,7 @@ export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
       return typeof percent === 'number' && percent < 100;
     }
   
-    async getName(): Promise<string> {
+    async getPrinterName(): Promise<string> {
       const info = await this.client.getPrinterInfo();
       return info?.TypeName ?? '';
     }

@@ -35,9 +35,9 @@ export class FlashForgeDevice extends Homey.Device {
 
     if (isPrinting) {
       if (value) {
-        await this.client.resumePrint();
+        await this.client.resume();
       } else {
-        await this.client.pausePrint();
+        await this.client.pause();
       }
       await this.setCapabilityValue("onoff", value);
     } else {

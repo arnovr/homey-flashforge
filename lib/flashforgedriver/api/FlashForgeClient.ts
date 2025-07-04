@@ -3,7 +3,7 @@ import { FiveMClientDecorator } from './FiveMClientDecorator';
 import { GhostFlashForgeClientDecorator } from './GhostFlashForgeClientDecorator';
 import { ConsoleLogUtils } from '../../ConsoleLogUtils';
 
-export class FlashForgeClient {
+export class FlashForgeClient implements NormalizedPrinterClient{
   private client: NormalizedPrinterClient;
 
   constructor(settings: PrinterSettings) {
@@ -20,17 +20,22 @@ export class FlashForgeClient {
       }
     });
   }
-  
+  connect(): Promise<boolean> {
+    return ConsoleLogUtils.withoutConsoleLogSync(() => this.client.connect());
+  }
+  disconnect(): Promise<void> {
+    return ConsoleLogUtils.withoutConsoleLogSync(() => this.client.disconnect());
+  }
 
   getStatus(): Promise<FlashForgeStatus> {
     return this.withConnection(() => this.client.getStatus());
   }
   
-  pausePrint(): Promise<boolean> {
+  pause(): Promise<boolean> {
     return this.withConnection(() => this.client.pause());
   }
   
-  resumePrint(): Promise<boolean> {
+  resume(): Promise<boolean> {
     return this.withConnection(() => this.client.resume());
   }
   
@@ -39,7 +44,7 @@ export class FlashForgeClient {
   }
   
   getPrinterName(): Promise<string> {
-    return this.withConnection(() => this.client.getName());
+    return this.withConnection(() => this.client.getPrinterName());
   }
  
 
@@ -87,5 +92,5 @@ export interface NormalizedPrinterClient {
   pause(): Promise<boolean>;
   resume(): Promise<boolean>;
   isPrinting(): Promise<boolean>;
-  getName(): Promise<string>;
+  getPrinterName(): Promise<string>;
 }

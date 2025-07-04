@@ -55,7 +55,7 @@ export class FiveMClientDecorator implements NormalizedPrinterClient {
       return await this.client.info.isPrinting();
     }
   
-    async getName(): Promise<string> {
+    async getPrinterName(): Promise<string> {
       const response = await this.client.info.getDetailResponse()
       return response?.detail.name ?? ""
     }
