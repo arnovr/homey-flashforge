@@ -35,30 +35,19 @@
   "flow": {
     "triggers": [
       {
-        "id": "measure_temperature.extruder_changed",
+        "id": "measure_print_percentage",
         "title": {
-          "en": "Temperature for extruder changed",
-          "nl": "Temperatuur voor extruder veranderd"
+          "en": "Percentage for printing changed",
+          "nl": "Print voortgang veranderd"
         },
         "tokens": [
           {
-            "name": "measure_temperature.extruder",
+            "name": "measure_print_percentage",
             "type": "number",
             "title": {
-              "en": "Extruder Temperature",
-              "nl": "Extruder Temperatuur"
-            },
-            "example": {
-              "en": "Extruder Temperature",
-              "nl": "Extruder Temperatuur"
+              "en": "Print Percentage",
+              "nl": "Printer voortgang"
             }
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=adventurer-5m"
           }
         ]
       },
@@ -81,42 +70,99 @@
               "nl": "Bed Temperatuur"
             }
           }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=adventurer-5m"
-          }
         ]
       },
       {
-        "id": "measure_print_percentage",
+        "id": "measure_temperature.extruder_changed",
         "title": {
-          "en": "Percentage for printing changed",
-          "nl": "Print voortgang veranderd"
+          "en": "Temperature for extruder changed",
+          "nl": "Temperatuur voor extruder veranderd"
         },
         "tokens": [
           {
-            "name": "measure_print_percentage",
+            "name": "measure_temperature.extruder",
             "type": "number",
             "title": {
-              "en": "Print Percentage",
-              "nl": "Printer voortgang"
+              "en": "Extruder Temperature",
+              "nl": "Extruder Temperatuur"
+            },
+            "example": {
+              "en": "Extruder Temperature",
+              "nl": "Extruder Temperatuur"
             }
-          }
-        ],
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=adventurer-5m"
           }
         ]
       }
     ]
   },
   "drivers": [
+    {
+      "name": {
+        "en": "Adventurer 3 / 4",
+        "nl": "Adventurer 3 / 4"
+      },
+      "class": "other",
+      "capabilities": [
+        "onoff",
+        "measure_temperature.bed",
+        "measure_temperature.extruder",
+        "measure_print_percentage"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature.bed": {
+          "title": {
+            "en": "Bed Temperature",
+            "nl": "Bed Temperatuur"
+          }
+        },
+        "measure_temperature.extruder": {
+          "title": {
+            "en": "Extruder Temperature",
+            "nl": "Extruder Temperatuur"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/adventurer-5m/assets/images/flashforge_small.png",
+        "large": "/drivers/adventurer-5m/assets/images/flashforge_large.png",
+        "xlarge": "/drivers/adventurer-5m/assets/images/flashforge_xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "adventurer-3-4",
+      "settings": [
+        {
+          "id": "ipAddress",
+          "type": "text",
+          "label": {
+            "en": "IP Address",
+            "nl": "IP adres"
+          },
+          "value": "192.168.1.10",
+          "hint": {
+            "en": "This is the IP address of your printer.",
+            "nl": "Dit is het IP adres van je printer."
+          }
+        }
+      ]
+    },
     {
       "name": {
         "en": "Adventurer 5M/PRO",

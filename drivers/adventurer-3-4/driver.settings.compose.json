@@ -1,0 +1,15 @@
+[
+    {
+        "id": "ipAddress",
+        "type": "text",
+        "label": {
+            "en": "IP Address",
+            "nl": "IP adres"
+        },
+        "value": "192.168.1.10",
+        "hint": {
+            "en": "This is the IP address of your printer.",
+            "nl": "Dit is het IP adres van je printer."
+        }
+    }
+]

@@ -1,3 +1,3 @@
 import { FlashForgeDevice } from "../../lib/flashforgedriver/FlashForgeDevice";
 
-module.exports = class Adventurer5MDevice extends FlashForgeDevice {};
+module.exports = class Adventurer34Device extends FlashForgeDevice {};

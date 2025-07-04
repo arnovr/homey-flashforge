@@ -7,6 +7,9 @@ export class FlashForgeClient {
   private client: NormalizedPrinterClient;
 
   constructor(settings: PrinterSettings) {
+    // checkCode is never filled with the adventurer 3 / 4, as we do not supply them.
+    // Adventurer 3 4 always uses fallback client ( GhostFlashForgeClient )
+
     this.client = ConsoleLogUtils.withoutConsoleLogSync(() => {
       if (settings.checkCode && settings.checkCode.trim() !== '') {
         const fivem = new FiveMClient(settings.ipAddress, settings.serialNumber, settings.checkCode);

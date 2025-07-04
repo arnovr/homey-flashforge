@@ -1,0 +1,49 @@
+{
+  "name": {
+    "en": "Adventurer 3 / 4",
+    "nl": "Adventurer 3 / 4"
+  },
+  "class": "other",
+  "capabilities": [
+    "onoff",
+    "measure_temperature.bed",
+    "measure_temperature.extruder",
+    "measure_print_percentage"
+  ],
+  "capabilitiesOptions": {
+		"measure_temperature.bed": {
+			"title": {
+				"en": "Bed Temperature",
+				"nl": "Bed Temperatuur"
+			}
+		},
+		"measure_temperature.extruder": {
+			"title": {
+				"en": "Extruder Temperature",
+				"nl": "Extruder Temperatuur"
+			}
+		}
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "images": {
+    "small": "/drivers/adventurer-5m/assets/images/flashforge_small.png",
+    "large": "/drivers/adventurer-5m/assets/images/flashforge_large.png",
+    "xlarge": "/drivers/adventurer-5m/assets/images/flashforge_xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "list_my_devices",
+      "template": "list_devices",
+      "navigation": { "next": "add_my_devices" }
+    },
+    {
+      "id": "add_my_devices",
+      "template": "add_devices"
+    }
+  ]
+}

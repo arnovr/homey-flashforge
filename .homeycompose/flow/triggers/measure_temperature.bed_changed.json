@@ -1,0 +1,21 @@
+{
+    "id": "measure_temperature.bed_changed",
+    "title": {
+      "en": "Temperature for bed changed",
+      "nl": "Temperatuur voor bed veranderd"
+    },
+    "tokens": [
+      {
+        "name": "measure_temperature.bed_changed",
+        "type": "number",
+        "title": {
+          "en": "Bed Temperature",
+          "nl": "Bed Temperatuur"
+        },
+        "example": {
+          "en": "Bed Temperature",
+          "nl": "Bed Temperatuur"
+        }
+      }
+    ]
+  }
