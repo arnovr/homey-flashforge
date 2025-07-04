@@ -20,9 +20,9 @@
   ],
   "permissions": [],
   "images": {
-    "small": "/assets/images/flashforge_small.png",
-    "large": "/assets/images/flashforge_large.png",
-    "xlarge": "/assets/images/flashforge_xlarge.png"
+    "small": "/assets/images/flashforge_small.jpg",
+    "large": "/assets/images/flashforge_large.jpg",
+    "xlarge": "/assets/images/flashforge_xlarge.jpg"
   },
   "author": {
     "name": "Arno van Rossum",
