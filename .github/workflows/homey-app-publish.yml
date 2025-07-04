@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -44,17 +47,17 @@ jobs:
       - name: Commit & Push
         run: |
           git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
           git add -A
           git commit -m "Update Homey App Version to v${{ steps.update_app_version.outputs.version }}"
           git tag "v${{ steps.update_app_version.outputs.version }}"
 
-          git push origin HEAD --tags
+          git push https://x-access-token:${{ secrets.PAT_PUSH }}@github.com/arnovr/homey-flashforge.git HEAD --tags
           gh release create "v${{ steps.update_app_version.outputs.version }}" -t "v${{ steps.update_app_version.outputs.version }}" --notes "" --generate-notes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_PUSH }}
+
 
       - name: Publish
         uses: athombv/github-action-homey-app-publish@master
