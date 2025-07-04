@@ -9,7 +9,7 @@ export class FlashForgeClient {
     if (settings.checkCode && settings.checkCode.trim() !== '') {
       const fivem = new FiveMClient(settings.ipAddress, settings.serialNumber, settings.checkCode);
       this.client = new FiveMClientDecorator(fivem);
-    } else {
+    } else { // Fall back to legacy for now
       const ghost = new GhostFlashForgeClient(settings.ipAddress);
       this.client = new GhostFlashForgeClientDecorator(ghost);
     }
@@ -36,11 +36,16 @@ export class FlashForgeClient {
   }
 
   private async withConnection<T>(fn: () => Promise<T>): Promise<T> {
-    await this.client.connect();
+    // Pretty ugly, but the library spams the logging.
+    const originalLog = console.log;
+    console.log = () => {};
     try {
+      await this.client.connect();
       return await fn();
     } finally {
       await this.client.disconnect();
+
+      console.log = originalLog;
     }
   }
   

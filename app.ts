@@ -2,13 +2,9 @@
 
 import Homey from 'homey';
 
-module.exports = class MyApp extends Homey.App {
-
-  /**
-   * onInit is called when the app is initialized.
-   */
+module.exports = class FlashForgeApp extends Homey.App {
   async onInit() {
-    this.log('MyApp has been initialized');
+    this.log('FlashForgeApp has been initialized');
   }
 
 }
