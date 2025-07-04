@@ -2,13 +2,6 @@ name: Flash Forge Homey App
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to add (e.g. 1.0.3)'
-        required: true
-      changelog:
-        description: 'Changelog for the new version'
-        required: true
 
 jobs:
   main:
@@ -23,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Adjust if needed
+          node-version: '18'
 
       - name: Install Homey CLI
         run: npm install -g homey
@@ -31,14 +24,36 @@ jobs:
       - name: Validate Homey App
         run: homey app validate --level publish
 
-      - name: Add new version
+      - name: Get last commit message
+        id: last_commit
         run: |
-          npx homey app version "${{ github.event.inputs.version }}" --changelog "${{ github.event.inputs.changelog }}"
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
 
-      - name: Commit version bump
+      - name: Add new patch version with last commit message as changelog
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app.json .homeycompose/app.json .homeychangelog.json
-          git commit -m "Bump version to ${{ github.event.inputs.version }}"
-          git push
+          npx homey app version patch --changelog "${{ steps.last_commit.outputs.message }}"
+
+      - name: Commit & Push
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit -m "Update Homey App Version to v${{ steps.update_app_version.outputs.version }}"
+          git tag "v${{ steps.update_app_version.outputs.version }}"
+
+          git push origin HEAD --tags
+          gh release create "v${{ steps.update_app_version.outputs.version }}" -t "v${{ steps.update_app_version.outputs.version }}" --notes "" --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish
+        uses: athombv/github-action-homey-app-publish@master
+        id: publish
+        with:
+          personal_access_token: ${{ secrets.HOMEY_PAT }}
+
+      - name: URL
+        run: |
+          echo "Manage your app at ${{ steps.publish.outputs.url }}." >> $GITHUB_STEP_SUMMARY
