@@ -19,5 +19,8 @@
   },
   "0.0.7": {
     "en": "Fixed the assets for the app"
+  },
+  "0.0.8": {
+    "en": "Updated the workflow to automatically push"
   }
 }
