@@ -122,7 +122,7 @@ export class FlashForgeDevice extends Homey.Device {
 }
 
 
-enum STORE_KEYS {
+export enum STORE_KEYS {
   IS_PRINTING = "IS_PRINTING",
   IS_DELAYED_PRINTING = "IS_DELAYED_PRINTING"
 }

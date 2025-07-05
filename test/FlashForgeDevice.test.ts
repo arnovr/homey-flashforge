@@ -1,4 +1,4 @@
-import { FlashForgeDevice } from '../lib/flashforgedriver/FlashForgeDevice';
+import { FlashForgeDevice, STORE_KEYS } from '../lib/flashforgedriver/FlashForgeDevice';
 import { FlashForgeClient, FlashForgeStatus, ConnectionFailedError } from '../lib/flashforgedriver/api/FlashForgeClient';
 
 describe('FlashForgeDevice updateStatus', () => {
@@ -40,7 +40,7 @@ describe('FlashForgeDevice updateStatus', () => {
     });
   });
 
-  describe('when printer is currently printing', () => {
+  describe('when printing', () => {
     const printingStatus: FlashForgeStatus = {
       isPrinting: true,
       printPercent: 75,
@@ -52,24 +52,24 @@ describe('FlashForgeDevice updateStatus', () => {
       mockClient.getStatus.mockResolvedValue(printingStatus);
     });
 
-    it('should update temperatures and capabilities when printing', async () => {
+    it('should update temperatures and capabilities', async () => {
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_PRINTING', true);
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_DELAYED_PRINTING', true);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_DELAYED_PRINTING, true);
       expect(device.updateTemperatures).toHaveBeenCalledWith(printingStatus);
       expect(device.updateCapabilities).toHaveBeenCalledWith(75, true);
     });
 
-    it('should not check for delayed printing state when currently printing', async () => {
+    it('should not check for delayed printing state', async () => {
       await device.updateStatus();
 
-      expect(device.getStoreValue).not.toHaveBeenCalledWith('IS_DELAYED_PRINTING');
+      expect(device.getStoreValue).not.toHaveBeenCalledWith(STORE_KEYS.IS_DELAYED_PRINTING);
       expect(device.isCooledDown).not.toHaveBeenCalled();
     });
   });
 
-  describe('when printer is not printing and not in delayed printing state', () => {
+  describe('when not printing and not delayed', () => {
     const notPrintingStatus: FlashForgeStatus = {
       isPrinting: false,
       printPercent: 0,
@@ -82,15 +82,15 @@ describe('FlashForgeDevice updateStatus', () => {
       device.getStoreValue = jest.fn().mockReturnValue(false);
     });
 
-    it('should set capabilities to 0 and false when not printing', async () => {
+    it('should set restore capabilities', async () => {
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_PRINTING', false);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(notPrintingStatus);
       expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
     });
 
-    it('should not check cooling state when not in delayed printing', async () => {
+    it('should not check cooling state', async () => {
       await device.updateStatus();
 
       expect(device.isCooledDown).not.toHaveBeenCalled();
@@ -98,7 +98,7 @@ describe('FlashForgeDevice updateStatus', () => {
     });
   });
 
-  describe('when printer is in delayed printing state', () => {
+  describe('when delayed printing', () => {
     const finishedPrintingStatus: FlashForgeStatus = {
       isPrinting: false,
       printPercent: 100,
@@ -116,14 +116,14 @@ describe('FlashForgeDevice updateStatus', () => {
 
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_PRINTING', false);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(finishedPrintingStatus);
       expect(device.isCooledDown).toHaveBeenCalledWith(45);
       expect(device.updateCapabilities).toHaveBeenCalledWith(100, false);
       expect(device.cooledDown).not.toHaveBeenCalled();
     });
 
-    it('should call cooledDown when bed temperature is below threshold', async () => {
+    it('should cool down when bed temperature became below threshold', async () => {
       const cooledStatus: FlashForgeStatus = {
         ...finishedPrintingStatus,
         bedTemp: 35,
@@ -133,14 +133,14 @@ describe('FlashForgeDevice updateStatus', () => {
 
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_PRINTING', false);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(cooledStatus);
       expect(device.isCooledDown).toHaveBeenCalledWith(35);
       expect(device.cooledDown).toHaveBeenCalled();
       expect(device.updateCapabilities).not.toHaveBeenCalledWith(100, false);
     });
 
-    it('should not call updateCapabilities with 0 when in delayed printing', async () => {
+    it('should not restore capabilities when in delayed printing', async () => {
       device.isCooledDown = jest.fn().mockReturnValue(false);
 
       await device.updateStatus();
@@ -150,7 +150,7 @@ describe('FlashForgeDevice updateStatus', () => {
   });
 
   describe('error handling', () => {
-    it('should call handleError and set capabilities to 0 when getStatus throws', async () => {
+    it('should call handleError restore capabilities', async () => {
       const error = new Error('Connection timeout');
       mockClient.getStatus.mockRejectedValue(error);
 
@@ -160,7 +160,7 @@ describe('FlashForgeDevice updateStatus', () => {
       expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
     });
 
-    it('should call handleError and set capabilities to 0 when ConnectionFailedError is thrown', async () => {
+    it('should call handleError restore capabilities on ConnectionFailedError', async () => {
       const error = new ConnectionFailedError();
       mockClient.getStatus.mockRejectedValue(error);
 
@@ -182,7 +182,7 @@ describe('FlashForgeDevice updateStatus', () => {
   });
 
   describe('integration scenarios', () => {
-    it('should handle transition from printing to delayed printing', async () => {
+    it('when printing is finished move to delayed printing', async () => {
       const printingStatus: FlashForgeStatus = {
         isPrinting: true,
         printPercent: 100,
@@ -193,12 +193,12 @@ describe('FlashForgeDevice updateStatus', () => {
       mockClient.getStatus.mockResolvedValue(printingStatus);
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_PRINTING', true);
-      expect(device.setStoreValue).toHaveBeenCalledWith('IS_DELAYED_PRINTING', true);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_DELAYED_PRINTING, true);
       expect(device.updateCapabilities).toHaveBeenCalledWith(100, true);
     });
 
-    it('should handle complete print cycle from printing to cooled down', async () => {
+    it('should cooldown after printing is finished', async () => {
       const printingStatus: FlashForgeStatus = {
         isPrinting: true,
         printPercent: 100,
