@@ -1,6 +1,5 @@
 import Homey from 'homey';
 import { ConnectionFailedError, FlashForgeClient, FlashForgeStatus, PrinterSettings } from './api/FlashForgeClient';
-import { stat } from 'fs';
 
 export class FlashForgeDevice extends Homey.Device {
   client: FlashForgeClient | undefined;
