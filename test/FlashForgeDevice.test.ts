@@ -1,5 +1,5 @@
-import { FlashForgeDevice } from './FlashForgeDevice';
-import { FlashForgeClient, FlashForgeStatus, ConnectionFailedError } from './api/FlashForgeClient';
+import { FlashForgeDevice } from '../lib/flashforgedriver/FlashForgeDevice';
+import { FlashForgeClient, FlashForgeStatus, ConnectionFailedError } from '../lib/flashforgedriver/api/FlashForgeClient';
 
 describe('FlashForgeDevice updateStatus', () => {
   let device: FlashForgeDevice;
