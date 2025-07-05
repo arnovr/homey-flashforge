@@ -44,8 +44,11 @@ jobs:
           echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
 
       - name: Add new patch version with last commit message as changelog
-        run: |
-          npx homey app version patch --changelog "${{ steps.last_commit.outputs.message }}"
+      - name: Add new patch version with last commit message as changelog
+          id: update_app_version
+          run: |
+            version=$(npx homey app version patch --changelog "${{ steps.last_commit.outputs.message }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+            echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Commit & Push
         run: |
