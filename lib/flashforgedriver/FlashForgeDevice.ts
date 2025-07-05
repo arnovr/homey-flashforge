@@ -1,5 +1,6 @@
 import Homey from 'homey';
-import { ConnectionFailedError, FlashForgeClient, PrinterSettings } from './api/FlashForgeClient';
+import { ConnectionFailedError, FlashForgeClient, FlashForgeStatus, PrinterSettings } from './api/FlashForgeClient';
+import { stat } from 'fs';
 
 export class FlashForgeDevice extends Homey.Device {
   client: FlashForgeClient | undefined;
@@ -52,36 +53,65 @@ export class FlashForgeDevice extends Homey.Device {
 
     try { 
       const status = await this.client.getStatus();
+      this.setStoreValue(STORE_KEYS.IS_PRINTING, status.isPrinting)
+
+      this.updateTemperatures(status)
 
       if (status.isPrinting) {
-        this.log(`Currently printing: ${status.printPercent}%`);
-        this.setCapabilityValue("measure_print_percentage", status.printPercent);
-        this.setCapabilityValue("onoff", true);
+        this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, true)
+        this.updateCapabilities(status.printPercent, true);
+        return;
+      }
 
-        if (status.printPercent === 100 && status.bedTemp < 40) {
-          this.log("Cooldown period over, printing is officially done.");
-          this.setCapabilityValue("measure_print_percentage", 0);
-          this.setCapabilityValue("onoff", false);
+      const isDelayedPrinting = this.getStoreValue(STORE_KEYS.IS_DELAYED_PRINTING);
+      if (isDelayedPrinting) {
+        if (this.isCooledDown(status.bedTemp) ) {
+          this.cooledDown()
+          return;
         }
-      } else {
-        this.log("No print job found, disable and set percentage to 0");
-        this.setCapabilityValue("measure_print_percentage", 0);
-        this.setCapabilityValue("onoff", false);
+
+        // Printing officially done according to the printer, but keep at 100%
+        this.updateCapabilities(100, false);
+        return;
       }
 
-      this.log("Temperatures: Bed: " + status.bedTemp + " , extruder: " + status.extruderTemp);
-      this.setCapabilityValue("measure_temperature.extruder", status.extruderTemp);
-      this.setCapabilityValue("measure_temperature.bed", status.bedTemp);
-    } catch (error) {
-      if (error instanceof ConnectionFailedError) {
-        this.log("Connection failed: printer might be powered off.");
-      } else {
-        this.log("Unexpected error, turn off and reset (could be powered off printer).");
-      }
-      this.setCapabilityValue("measure_print_percentage", 0);
-      this.setCapabilityValue("onoff", false);
+    } catch (error: unknown) {
+      this.handleError(error);
+    }
+
+    this.updateCapabilities(0, false);
+  }
+  handleError(error: unknown) {
+    if (error instanceof ConnectionFailedError) {
+      this.log("Connection failed: printer might be powered off.");
+    } else {
+      this.log("Unexpected error, turn off and reset (could be powered off printer).");
     }
   }
+  cooledDown() {
+    this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, false)
+        
+    const cooledDownTrigger = this.homey.flow.getTriggerCard('finished_printing_cooled_down');
+    cooledDownTrigger.trigger()
+    this.updateCapabilities(0, false);
+  }
+
+  updateTemperatures(status: FlashForgeStatus) {
+    this.log("Temperatures: Bed: " + status.bedTemp + " , extruder: " + status.extruderTemp);
+    this.setCapabilityValue("measure_temperature.extruder", status.extruderTemp);
+    this.setCapabilityValue("measure_temperature.bed", status.bedTemp);
+  }
+
+  updateCapabilities(percentage: Number, onoff: boolean) {
+    this.log("Update capabilities, print percentage: " + percentage + ", device: " + onoff)
+    this.setCapabilityValue("measure_print_percentage", percentage);
+    this.setCapabilityValue("onoff", onoff);
+  }
+
+  isCooledDown(bedTemperature: number) {
+    return bedTemperature < 40
+  }
+
 
   async onDeleted() {
     if (this.pollInterval) clearInterval(this.pollInterval);
@@ -90,4 +120,10 @@ export class FlashForgeDevice extends Homey.Device {
   async onUninit() {
     if (this.pollInterval) clearInterval(this.pollInterval);
   }
+}
+
+
+enum STORE_KEYS {
+  IS_PRINTING = "IS_PRINTING",
+  IS_DELAYED_PRINTING = "IS_DELAYED_PRINTING"
 }
