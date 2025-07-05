@@ -37,5 +37,17 @@
     "homepage": "https://github.com/arnovr/homey-flashforge",
     "source": "https://github.com/arnovr/homey-flashforge",
     "support": "https://github.com/arnovr/homey-flashforge/issues"
-  }
+  },
+  "settings": [
+    {
+      "id": "apiKey",
+      "type": "text",
+      "label": {
+        "en": "API Key"
+      },
+      "hint": {
+        "en": "Enter your API key here"
+      }
+    },
+  ]
 }

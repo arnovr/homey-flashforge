@@ -199,9 +199,16 @@ describe('FlashForgeDevice updateStatus', () => {
     });
 
     it('should cooldown after printing is finished', async () => {
+      const initialPrintStatus: FlashForgeStatus = {
+        isPrinting: false,
+        printPercent: 0,
+        bedTemp: 30,
+        extruderTemp: 30,
+      };
+
       const printingStatus: FlashForgeStatus = {
         isPrinting: true,
-        printPercent: 100,
+        printPercent: 70,
         bedTemp: 65,
         extruderTemp: 200,
       };
@@ -213,15 +220,26 @@ describe('FlashForgeDevice updateStatus', () => {
         extruderTemp: 25,
       };
 
+
+      mockClient.getStatus.mockResolvedValue(initialPrintStatus);
+      await device.updateStatus();
+      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
+
+      expect(device.cooledDown).not.toHaveBeenCalled();
+
       mockClient.getStatus.mockResolvedValue(printingStatus);
       await device.updateStatus();
 
+      expect(device.updateCapabilities).toHaveBeenCalledWith(70, true);
+      expect(device.cooledDown).not.toHaveBeenCalled();
+      
       device.getStoreValue = jest.fn().mockReturnValue(true);
       device.isCooledDown = jest.fn().mockReturnValue(true);
       mockClient.getStatus.mockResolvedValue(finishedStatus);
       
       await device.updateStatus();
 
+      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
       expect(device.cooledDown).toHaveBeenCalled();
     });
   });

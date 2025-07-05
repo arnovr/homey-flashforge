@@ -80,6 +80,7 @@ export class FlashForgeDevice extends Homey.Device {
 
     this.updateCapabilities(0, false);
   }
+  
   handleError(error: unknown) {
     if (error instanceof ConnectionFailedError) {
       this.log("Connection failed: printer might be powered off.");
