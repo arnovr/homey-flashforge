@@ -35,8 +35,10 @@ export class FlashForgeDevice extends Homey.Device {
 
     if (isPrinting) {
       if (value) {
+        this.setStoreValue(STORE_KEYS.IS_PAUSED, false)
         await this.client.resume();
       } else {
+        this.setStoreValue(STORE_KEYS.IS_PAUSED, true)
         await this.client.pause();
       }
       await this.setCapabilityValue("onoff", value);
@@ -135,6 +137,7 @@ export class FlashForgeDevice extends Homey.Device {
 
 
 export enum STORE_KEYS {
+  IS_PAUSED = "IS_PRINTING_PAUSE",
   IS_PRINTING = "IS_PRINTING",
   IS_DELAYED_PRINTING = "IS_DELAYED_PRINTING"
 }
