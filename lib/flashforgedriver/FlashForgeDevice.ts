@@ -52,6 +52,7 @@ export class FlashForgeDevice extends Homey.Device {
 
     try { 
       const status = await this.client.getStatus();
+      this.online();
       this.setStoreValue(STORE_KEYS.IS_PRINTING, status.isPrinting)
 
       this.updateTemperatures(status)
@@ -83,6 +84,7 @@ export class FlashForgeDevice extends Homey.Device {
   
   handleError(error: unknown) {
     if (error instanceof ConnectionFailedError) {
+      this.offline();
       this.log("Connection failed: printer might be powered off.");
     } else {
       this.log("Unexpected error, turn off and reset (could be powered off printer).");
@@ -106,6 +108,15 @@ export class FlashForgeDevice extends Homey.Device {
     this.log("Update capabilities, print percentage: " + percentage + ", device: " + onoff)
     this.setCapabilityValue("measure_print_percentage", percentage);
     this.setCapabilityValue("onoff", onoff);
+  }
+
+  offline() {
+    this.log("Printer offline")
+    // this.setCapabilityValue("alarm_generic", false)
+  }
+  online() { 
+    this.log("Printer online")
+    // this.setCapabilityValue("alarm_generic", true)
   }
 
   isCooledDown(bedTemperature: number) {
