@@ -68,7 +68,7 @@ export class FlashForgeDevice extends Homey.Device {
       const isDelayedPrinting = this.getStoreValue(STORE_KEYS.IS_DELAYED_PRINTING);
       if (isDelayedPrinting) {
         if (this.isCooledDown(status.bedTemp) ) {
-          this.cooledDown()
+          await this.cooledDown()
           return;
         }
 
@@ -92,11 +92,11 @@ export class FlashForgeDevice extends Homey.Device {
       this.log("Unexpected error, turn off and reset (could be powered off printer).");
     }
   }
-  cooledDown() {
+  async cooledDown() {
     this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, false)
         
     const cooledDownTrigger = this.homey.flow.getTriggerCard('finished_printing_cooled_down');
-    cooledDownTrigger.trigger()
+    await cooledDownTrigger.trigger()
     this.updateCapabilities(0, false);
   }
 
