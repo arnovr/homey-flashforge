@@ -1,9 +1,9 @@
 import { FlashForgeDevice, STORE_KEYS } from '../lib/flashforgedriver/FlashForgeDevice';
-import { FlashForgeClient, FlashForgeStatus, ConnectionFailedError } from '../lib/flashforgedriver/api/FlashForgeClient';
+import { FlashForgeStatus, ConnectionFailedError } from '../lib/flashforgedriver/api/FlashForgeClient';
 
 describe('FlashForgeDevice updateStatus', () => {
   let device: FlashForgeDevice;
-  let mockClient: any;
+  let mockClient: jest.Mocked<any>;
 
   beforeEach(() => {
     mockClient = {
@@ -241,6 +241,127 @@ describe('FlashForgeDevice updateStatus', () => {
 
       expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
       expect(device.cooledDown).toHaveBeenCalled();
+    });
+  });
+});
+
+describe('FlashForgeDevice handleButton', () => {
+  let device: FlashForgeDevice;
+  let mockClient: jest.Mocked<any>;
+
+  beforeEach(() => {
+    mockClient = {
+      getStatus: jest.fn(),
+      connect: jest.fn(),
+      disconnect: jest.fn(),
+      pause: jest.fn(),
+      resume: jest.fn(),
+      isPrinting: jest.fn(),
+      getPrinterName: jest.fn(),
+    };
+
+    device = new FlashForgeDevice();
+    device.client = mockClient;
+    device.setStoreValue = jest.fn();
+    device.setCapabilityValue = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('when client is not initialized', () => {
+    it('should throw error when client is undefined', async () => {
+      device.client = undefined;
+
+      await expect(device.handleButton(true)).rejects.toThrow('Er is geen client geïnitialiseerd.');
+      await expect(device.handleButton(false)).rejects.toThrow('Er is geen client geïnitialiseerd.');
+    });
+  });
+
+  describe('when printer is printing', () => {
+    beforeEach(() => {
+      mockClient.isPrinting.mockResolvedValue(true);
+    });
+
+    it('should resume printing when value is true', async () => {
+      await device.handleButton(true);
+
+      expect(mockClient.isPrinting).toHaveBeenCalled();
+      expect(mockClient.resume).toHaveBeenCalled();
+      expect(mockClient.pause).not.toHaveBeenCalled();
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, false);
+      expect(device.setCapabilityValue).toHaveBeenCalledWith('onoff', true);
+    });
+
+    it('should pause printing when value is false', async () => {
+      await device.handleButton(false);
+
+      expect(mockClient.isPrinting).toHaveBeenCalled();
+      expect(mockClient.pause).toHaveBeenCalled();
+      expect(mockClient.resume).not.toHaveBeenCalled();
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, true);
+      expect(device.setCapabilityValue).toHaveBeenCalledWith('onoff', false);
+    });
+
+    it('should handle client errors during resume', async () => {
+      const error = new Error('Resume failed');
+      mockClient.resume.mockRejectedValue(error);
+
+      await expect(device.handleButton(true)).rejects.toThrow('Resume failed');
+      expect(mockClient.resume).toHaveBeenCalled();
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, false);
+    });
+
+    it('should handle client errors during pause', async () => {
+      const error = new Error('Pause failed');
+      mockClient.pause.mockRejectedValue(error);
+
+      await expect(device.handleButton(false)).rejects.toThrow('Pause failed');
+      expect(mockClient.pause).toHaveBeenCalled();
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, true);
+    });
+  });
+
+  describe('when printer is not printing', () => {
+    beforeEach(() => {
+      mockClient.isPrinting.mockResolvedValue(false);
+    });
+
+    it('should throw error when trying to resume with value true', async () => {
+      await expect(device.handleButton(true)).rejects.toThrow(
+        'Kan geen print hervatten als er geen print bezig is.',
+      );
+
+      expect(mockClient.isPrinting).toHaveBeenCalled();
+      expect(mockClient.resume).not.toHaveBeenCalled();
+      expect(mockClient.pause).not.toHaveBeenCalled();
+      expect(device.setStoreValue).not.toHaveBeenCalled();
+      expect(device.setCapabilityValue).not.toHaveBeenCalled();
+    });
+
+    it('should throw error when trying to pause with value false', async () => {
+      await expect(device.handleButton(false)).rejects.toThrow(
+        'Kan geen print pauzeren als er geen print bezig is.',
+      );
+
+      expect(mockClient.isPrinting).toHaveBeenCalled();
+      expect(mockClient.resume).not.toHaveBeenCalled();
+      expect(mockClient.pause).not.toHaveBeenCalled();
+      expect(device.setStoreValue).not.toHaveBeenCalled();
+      expect(device.setCapabilityValue).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('error handling', () => {
+    it('should handle isPrinting errors', async () => {
+      const error = new Error('isPrinting failed');
+      mockClient.isPrinting.mockRejectedValue(error);
+
+      await expect(device.handleButton(true)).rejects.toThrow('isPrinting failed');
+      expect(mockClient.isPrinting).toHaveBeenCalled();
+      expect(mockClient.resume).not.toHaveBeenCalled();
+      expect(mockClient.pause).not.toHaveBeenCalled();
     });
   });
 });
