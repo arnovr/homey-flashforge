@@ -31,5 +31,8 @@
   },
   "0.0.11": {
     "en": "Syntax error, good job"
+  },
+  "0.0.12": {
+    "en": "Changed the capabilities to make more sense, they are now driver specific. And fixed the printing is finished with cooldown trigger"
   }
 }
