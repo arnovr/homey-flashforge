@@ -4,6 +4,8 @@ import { ConnectionFailedError, FlashForgeClient, FlashForgeStatus, PrinterSetti
 export class FlashForgeDevice extends Homey.Device {
   client: FlashForgeClient | undefined;
   pollInterval: NodeJS.Timeout | undefined;
+  deviceName: String = "";
+
 
   async onInit() {
     this.log('Initialize device');
@@ -95,15 +97,21 @@ export class FlashForgeDevice extends Homey.Device {
   async cooledDown() {
     this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, false)
         
-    const cooledDownTrigger = this.homey.flow.getTriggerCard('finished_printing_cooled_down');
-    await cooledDownTrigger.trigger()
+
+
+    const triggerCard = this.homey.flow.getDeviceTriggerCard("finished_printing_cooled_down_" + this.deviceName)
+
+    triggerCard.trigger(this, {}, {})
+
+
     this.updateCapabilities(0, false);
   }
 
   updateTemperatures(status: FlashForgeStatus) {
     this.log("Temperatures: Bed: " + status.bedTemp + " , extruder: " + status.extruderTemp);
-    this.setCapabilityValue("measure_temperature.extruder", status.extruderTemp);
-    this.setCapabilityValue("measure_temperature.bed", status.bedTemp);
+
+    this.setCapabilityValue(`measure_temperature.extruder`, status.extruderTemp);
+    this.setCapabilityValue(`measure_temperature.bed`, status.bedTemp);
   }
 
   updateCapabilities(percentage: Number, onoff: boolean) {

@@ -1,0 +1,11 @@
+{
+    "triggers": [
+        {
+            "id": "finished_printing_cooled_down_5m",
+            "title": {
+                "en": "Finished Printing and has cooled down",
+                "nl": "Klaar met printen, en is afgekoeld."
+            }
+        }
+    ]
+  }

@@ -42,68 +42,30 @@
   "flow": {
     "triggers": [
       {
-        "id": "finished_printing_cooled_down",
+        "id": "finished_printing_cooled_down_34",
         "title": {
           "en": "Finished Printing and has cooled down",
           "nl": "Klaar met printen, en is afgekoeld."
-        }
-      },
-      {
-        "id": "measure_print_percentage",
-        "title": {
-          "en": "Percentage for printing changed",
-          "nl": "Print voortgang veranderd"
         },
-        "tokens": [
+        "args": [
           {
-            "name": "measure_print_percentage",
-            "type": "number",
-            "title": {
-              "en": "Print Percentage",
-              "nl": "Printer voortgang"
-            }
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-3-4"
           }
         ]
       },
       {
-        "id": "measure_temperature.bed_changed",
+        "id": "finished_printing_cooled_down_5m",
         "title": {
-          "en": "Temperature for bed changed",
-          "nl": "Temperatuur voor bed veranderd"
+          "en": "Finished Printing and has cooled down",
+          "nl": "Klaar met printen, en is afgekoeld."
         },
-        "tokens": [
+        "args": [
           {
-            "name": "measure_temperature.bed_changed",
-            "type": "number",
-            "title": {
-              "en": "Bed Temperature",
-              "nl": "Bed Temperatuur"
-            },
-            "example": {
-              "en": "Bed Temperature",
-              "nl": "Bed Temperatuur"
-            }
-          }
-        ]
-      },
-      {
-        "id": "measure_temperature.extruder_changed",
-        "title": {
-          "en": "Temperature for extruder changed",
-          "nl": "Temperatuur voor extruder veranderd"
-        },
-        "tokens": [
-          {
-            "name": "measure_temperature.extruder",
-            "type": "number",
-            "title": {
-              "en": "Extruder Temperature",
-              "nl": "Extruder Temperatuur"
-            },
-            "example": {
-              "en": "Extruder Temperature",
-              "nl": "Extruder Temperatuur"
-            }
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-5m"
           }
         ]
       }
@@ -123,13 +85,13 @@
         "measure_print_percentage"
       ],
       "capabilitiesOptions": {
-        "measure_temperature.bed": {
+        "measure_temperature_adventurer34.bed": {
           "title": {
             "en": "Bed Temperature",
             "nl": "Bed Temperatuur"
           }
         },
-        "measure_temperature.extruder": {
+        "measure_temperature_adventurer34.extruder": {
           "title": {
             "en": "Extruder Temperature",
             "nl": "Extruder Temperatuur"
@@ -182,13 +144,13 @@
         "measure_print_percentage"
       ],
       "capabilitiesOptions": {
-        "measure_temperature.bed": {
+        "measure_temperature_adventurer5m.bed": {
           "title": {
             "en": "Bed Temperature",
             "nl": "Bed Temperatuur"
           }
         },
-        "measure_temperature.extruder": {
+        "measure_temperature_adventurer5m.extruder": {
           "title": {
             "en": "Extruder Temperature",
             "nl": "Extruder Temperatuur"
@@ -265,40 +227,6 @@
       },
       "min": 0,
       "max": 100,
-      "step": 1
-    },
-    "measure_temperature_bed": {
-      "id": "measure_temperature.bed",
-      "type": "number",
-      "title": {
-        "en": "Bed Temperature",
-        "nl": "Bed Temperatuur"
-      },
-      "uiComponent": "sensor",
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "C"
-      },
-      "min": 0,
-      "max": 300,
-      "step": 1
-    },
-    "measure_temperature_extruder": {
-      "id": "measure_temperature.extruder",
-      "type": "number",
-      "title": {
-        "en": "Extruder Temperature",
-        "nl": "Extruder Temperatuur"
-      },
-      "uiComponent": "sensor",
-      "getable": true,
-      "setable": false,
-      "units": {
-        "en": "°C"
-      },
-      "min": 0,
-      "max": 300,
       "step": 1
     }
   }
