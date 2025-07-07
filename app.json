@@ -80,18 +80,24 @@
       "class": "other",
       "capabilities": [
         "onoff",
+        "is_printing",
         "measure_temperature.bed",
         "measure_temperature.extruder",
         "measure_print_percentage"
       ],
       "capabilitiesOptions": {
-        "measure_temperature_adventurer34.bed": {
+        "onoff": {
+          "uiComponent": "button",
+          "getable": false,
+          "setable": false
+        },
+        "measure_temperature.bed": {
           "title": {
             "en": "Bed Temperature",
             "nl": "Bed Temperatuur"
           }
         },
-        "measure_temperature_adventurer34.extruder": {
+        "measure_temperature.extruder": {
           "title": {
             "en": "Extruder Temperature",
             "nl": "Extruder Temperatuur"
@@ -139,18 +145,24 @@
       "class": "other",
       "capabilities": [
         "onoff",
+        "is_printing",
         "measure_temperature.bed",
         "measure_temperature.extruder",
         "measure_print_percentage"
       ],
       "capabilitiesOptions": {
-        "measure_temperature_adventurer5m.bed": {
+        "onoff": {
+          "uiComponent": "button",
+          "getable": false,
+          "setable": false
+        },
+        "measure_temperature.bed": {
           "title": {
             "en": "Bed Temperature",
             "nl": "Bed Temperatuur"
           }
         },
-        "measure_temperature_adventurer5m.extruder": {
+        "measure_temperature.extruder": {
           "title": {
             "en": "Extruder Temperature",
             "nl": "Extruder Temperatuur"
@@ -213,6 +225,16 @@
     }
   ],
   "capabilities": {
+    "is_printing": {
+      "id": "is_printing",
+      "type": "boolean",
+      "title": {
+        "en": "Is printing",
+        "nl": "Aan het printen"
+      },
+      "getable": true,
+      "setable": false
+    },
     "measure_print_percentage": {
       "id": "measure_print_percentage",
       "type": "number",

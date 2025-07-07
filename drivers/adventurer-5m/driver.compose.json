@@ -6,18 +6,24 @@
   "class": "other",
   "capabilities": [
     "onoff",
+    "is_printing",
     "measure_temperature.bed",
     "measure_temperature.extruder",
     "measure_print_percentage"
   ],
   "capabilitiesOptions": {
-		"measure_temperature_adventurer5m.bed": {
+    "onoff": {
+      "uiComponent": "button",
+      "getable": false,
+      "setable": false
+    },
+		"measure_temperature.bed": {
 			"title": {
 				"en": "Bed Temperature",
 				"nl": "Bed Temperatuur"
 			}
 		},
-		"measure_temperature_adventurer5m.extruder": {
+		"measure_temperature.extruder": {
 			"title": {
 				"en": "Extruder Temperature",
 				"nl": "Extruder Temperatuur"

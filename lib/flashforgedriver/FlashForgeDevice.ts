@@ -21,7 +21,11 @@ export class FlashForgeDevice extends Homey.Device {
 
     await this.updateStatus();
 
-    this.registerCapabilityListener("onoff", this.handleButton.bind(this));
+    this.registerCapabilityListener("onoff", () => {
+      this.log("On off is pressed")
+    });
+
+    this.registerCapabilityListener("is_printing", this.handleButton.bind(this));
 
     this.pollInterval = this.homey.setInterval(() => {
       this.updateStatus();
@@ -32,6 +36,7 @@ export class FlashForgeDevice extends Homey.Device {
     if (!this.client) {
       throw new Error("Er is geen client geïnitialiseerd.");
     }
+    this.log("Button is pressed")
 
     const isPrinting = await this.client.isPrinting();
 
@@ -43,7 +48,7 @@ export class FlashForgeDevice extends Homey.Device {
         this.setStoreValue(STORE_KEYS.IS_PAUSED, true)
         await this.client.pause();
       }
-      await this.setCapabilityValue("onoff", value);
+      await this.setCapabilityValue("is_printing", value);
     } else {
       throw new Error(value
         ? "Kan geen print hervatten als er geen print bezig is."
@@ -81,28 +86,31 @@ export class FlashForgeDevice extends Homey.Device {
 
     } catch (error: unknown) {
       this.handleError(error);
+    } finally {
+      await this.client.disconnect()
     }
-
-    this.updateCapabilities(0, false);
   }
   
   handleError(error: unknown) {
+    const connectionFailedRetry = (this.getStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD) as number | undefined) ?? 0;
+
     if (error instanceof ConnectionFailedError) {
-      this.offline();
-      this.log("Connection failed: printer might be powered off.");
+      if ( connectionFailedRetry > 2 ) {
+        this.offline();
+      }
+      this.log("Connection failed: printer might be powered off, retry: " + connectionFailedRetry);
     } else {
-      this.log("Unexpected error, turn off and reset (could be powered off printer).");
+      this.log("Unexpected error, turn off and reset (could be powered off printer), retry: " + connectionFailedRetry);
     }
+
+    this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, connectionFailedRetry + 1);
   }
+
   async cooledDown() {
     this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, false)
         
-
-
     const triggerCard = this.homey.flow.getDeviceTriggerCard("finished_printing_cooled_down_" + this.deviceName)
-
     triggerCard.trigger(this, {}, {})
-
 
     this.updateCapabilities(0, false);
   }
@@ -114,19 +122,23 @@ export class FlashForgeDevice extends Homey.Device {
     this.setCapabilityValue(`measure_temperature.bed`, status.bedTemp);
   }
 
-  updateCapabilities(percentage: Number, onoff: boolean) {
-    this.log("Update capabilities, print percentage: " + percentage + ", device: " + onoff)
+  updateCapabilities(percentage: Number, isPrinting: boolean) {
+    this.log("Update capabilities, print percentage: " + percentage + ", is printing: " + isPrinting)
     this.setCapabilityValue("measure_print_percentage", percentage);
-    this.setCapabilityValue("onoff", onoff);
+    this.setCapabilityValue("is_printing", isPrinting);
   }
 
   offline() {
     this.log("Printer offline")
-    // this.setCapabilityValue("alarm_generic", false)
+
+    this.updateCapabilities(0, false);
+    this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, 0);
+    this.setCapabilityValue("onoff", false);
   }
   online() { 
+    this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, 0);
     this.log("Printer online")
-    // this.setCapabilityValue("alarm_generic", true)
+    this.setCapabilityValue("onoff", true);
   }
 
   isCooledDown(bedTemperature: number) {
@@ -147,5 +159,6 @@ export class FlashForgeDevice extends Homey.Device {
 export enum STORE_KEYS {
   IS_PAUSED = "IS_PRINTING_PAUSE",
   IS_PRINTING = "IS_PRINTING",
-  IS_DELAYED_PRINTING = "IS_DELAYED_PRINTING"
+  IS_DELAYED_PRINTING = "IS_DELAYED_PRINTING",
+  CONNECTION_FAILED_THRESHOLD  = "CONNECTION_FAILED_THRESHOLD"
 }
