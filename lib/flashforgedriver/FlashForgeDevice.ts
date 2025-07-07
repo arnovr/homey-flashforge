@@ -65,7 +65,6 @@ export class FlashForgeDevice extends Homey.Device {
       this.setStoreValue(STORE_KEYS.IS_PRINTING, status.isPrinting)
 
       this.updateTemperatures(status)
-
       if (status.isPrinting) {
         this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, true)
         this.updateCapabilities(status.printPercent, true);
@@ -78,7 +77,6 @@ export class FlashForgeDevice extends Homey.Device {
           await this.cooledDown()
           return;
         }
-
         // Printing officially done according to the printer, but keep at 100%
         this.updateCapabilities(100, false);
         return;
@@ -86,9 +84,7 @@ export class FlashForgeDevice extends Homey.Device {
 
     } catch (error: unknown) {
       this.handleError(error);
-    } finally {
-      await this.client.disconnect()
-    }
+    } 
   }
   
   handleError(error: unknown) {
