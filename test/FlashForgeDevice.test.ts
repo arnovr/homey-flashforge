@@ -87,7 +87,7 @@ describe('FlashForgeDevice updateStatus', () => {
 
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(notPrintingStatus);
-      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
+      expect(device.updateCapabilities).not.toHaveBeenCalled();
     });
 
     it('should not check cooling state', async () => {
@@ -157,7 +157,7 @@ describe('FlashForgeDevice updateStatus', () => {
       await device.updateStatus();
 
       expect(device.handleError).toHaveBeenCalledWith(error);
-      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
+      expect(device.updateCapabilities).not.toHaveBeenCalled();
     });
 
     it('should call handleError restore capabilities on ConnectionFailedError', async () => {
@@ -167,7 +167,7 @@ describe('FlashForgeDevice updateStatus', () => {
       await device.updateStatus();
 
       expect(device.handleError).toHaveBeenCalledWith(error);
-      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
+      expect(device.updateCapabilities).not.toHaveBeenCalled();
     });
 
     it('should not update temperatures when error occurs', async () => {
@@ -223,7 +223,7 @@ describe('FlashForgeDevice updateStatus', () => {
 
       mockClient.getStatus.mockResolvedValue(initialPrintStatus);
       await device.updateStatus();
-      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
+      expect(device.updateCapabilities).not.toHaveBeenCalled();
 
       expect(device.cooledDown).not.toHaveBeenCalled();
 
@@ -235,12 +235,19 @@ describe('FlashForgeDevice updateStatus', () => {
       
       device.getStoreValue = jest.fn().mockReturnValue(true);
       device.isCooledDown = jest.fn().mockReturnValue(true);
+      device.updateCapabilities = jest.fn(); // Clear the mock
+      // Don't mock cooledDown so it calls updateCapabilities
+      const originalCooledDown = device.cooledDown;
+      device.cooledDown = jest.fn().mockImplementation(() => {
+        device.updateCapabilities(0, false);
+        return originalCooledDown.call(device);
+      });
       mockClient.getStatus.mockResolvedValue(finishedStatus);
       
       await device.updateStatus();
 
-      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
       expect(device.cooledDown).toHaveBeenCalled();
+      expect(device.updateCapabilities).toHaveBeenCalledWith(0, false);
     });
   });
 });
@@ -291,7 +298,7 @@ describe('FlashForgeDevice handleButton', () => {
       expect(mockClient.resume).toHaveBeenCalled();
       expect(mockClient.pause).not.toHaveBeenCalled();
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, false);
-      expect(device.setCapabilityValue).toHaveBeenCalledWith('onoff', true);
+      expect(device.setCapabilityValue).toHaveBeenCalledWith('is_printing', true);
     });
 
     it('should pause printing when value is false', async () => {
@@ -301,7 +308,7 @@ describe('FlashForgeDevice handleButton', () => {
       expect(mockClient.pause).toHaveBeenCalled();
       expect(mockClient.resume).not.toHaveBeenCalled();
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, true);
-      expect(device.setCapabilityValue).toHaveBeenCalledWith('onoff', false);
+      expect(device.setCapabilityValue).toHaveBeenCalledWith('is_printing', false);
     });
 
     it('should handle client errors during resume', async () => {
