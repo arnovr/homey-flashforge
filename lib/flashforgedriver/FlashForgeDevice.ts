@@ -56,8 +56,8 @@ export class FlashForgeDevice extends Homey.Device {
       await this.setCapabilityValue("is_printing", value);
     } else {
       throw new Error(value
-        ? "Kan geen print hervatten als er geen print bezig is."
-        : "Kan geen print pauzeren als er geen print bezig is.");
+        ? "Cannot resume print if no print is in progress."
+        : "Cannot pause print if no print is in progress.");
     }
   }
 
@@ -112,7 +112,7 @@ export class FlashForgeDevice extends Homey.Device {
     } else {
       this.log("Unexpected error, turn off and reset (could be powered off printer), retry: " + connectionFailedRetry);
     }
-    
+
     this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, connectionFailedRetry + 1);
 
     if ( connectionFailedRetry > 2 ) {
