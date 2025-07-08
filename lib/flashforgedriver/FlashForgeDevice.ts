@@ -118,7 +118,6 @@ export class FlashForgeDevice extends Homey.Device {
     if ( connectionFailedRetry > 2 ) {
       this.offline();
     }
-
   }
 
   async cooledDown() {
@@ -138,21 +137,19 @@ export class FlashForgeDevice extends Homey.Device {
   }
 
   updateCapabilities(percentage: Number, isPrinting: boolean) {
-    this.log("Update capabilities, print percentage: " + percentage + ", is printing: " + isPrinting)
+    this.log("Print percentage: " + percentage + ", is printing: " + isPrinting)
     this.setCapabilityValue("measure_print_percentage", percentage);
     this.setCapabilityValue("is_printing", isPrinting);
   }
 
   offline() {
-    this.log("Printer offline")
-
     this.updateCapabilities(0, false);
     this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, 0);
     this.setCapabilityValue("onoff", false);
   }
+
   online() { 
     this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, 0);
-    this.log("Printer online")
     this.setCapabilityValue("onoff", true);
   }
 
