@@ -13,7 +13,6 @@
   ],
   "capabilitiesOptions": {
     "onoff": {
-      "uiComponent": "button",
       "getable": false,
       "setable": false
     },

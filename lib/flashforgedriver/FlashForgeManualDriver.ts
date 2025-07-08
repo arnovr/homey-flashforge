@@ -2,7 +2,6 @@ import Homey from 'homey';
 import { PairSession } from 'homey/lib/Driver';
 import { FlashForgeClient } from './api/FlashForgeClient';
 
-
 export class FlashForgeManualDriver extends Homey.Driver {
     async onInit() {
       this.log('FlashForgeManualDriver has been initialized');

@@ -56,7 +56,7 @@ describe('FlashForgeDevice updateStatus', () => {
       await device.updateStatus();
 
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_DELAYED_PRINTING, true);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
       expect(device.updateTemperatures).toHaveBeenCalledWith(printingStatus);
       expect(device.updateCapabilities).toHaveBeenCalledWith(75, true);
     });
@@ -64,7 +64,7 @@ describe('FlashForgeDevice updateStatus', () => {
     it('should not check for delayed printing state', async () => {
       await device.updateStatus();
 
-      expect(device.getStoreValue).not.toHaveBeenCalledWith(STORE_KEYS.IS_DELAYED_PRINTING);
+      expect(device.getStoreValue).not.toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING);
       expect(device.isCooledDown).not.toHaveBeenCalled();
     });
   });
@@ -85,7 +85,6 @@ describe('FlashForgeDevice updateStatus', () => {
     it('should set restore capabilities', async () => {
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(notPrintingStatus);
       expect(device.updateCapabilities).not.toHaveBeenCalled();
     });
@@ -116,7 +115,6 @@ describe('FlashForgeDevice updateStatus', () => {
 
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(finishedPrintingStatus);
       expect(device.isCooledDown).toHaveBeenCalledWith(45);
       expect(device.updateCapabilities).toHaveBeenCalledWith(100, false);
@@ -133,7 +131,6 @@ describe('FlashForgeDevice updateStatus', () => {
 
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, false);
       expect(device.updateTemperatures).toHaveBeenCalledWith(cooledStatus);
       expect(device.isCooledDown).toHaveBeenCalledWith(35);
       expect(device.cooledDown).toHaveBeenCalled();
@@ -194,7 +191,7 @@ describe('FlashForgeDevice updateStatus', () => {
       await device.updateStatus();
 
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_DELAYED_PRINTING, true);
+      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
       expect(device.updateCapabilities).toHaveBeenCalledWith(100, true);
     });
 
@@ -292,7 +289,11 @@ describe('FlashForgeDevice handleButton', () => {
     });
 
     it('should resume printing when value is true', async () => {
+      // Is in paused state
+      device.getStoreValue = jest.fn().mockReturnValue(true);
+
       await device.handleButton(true);
+
 
       expect(mockClient.isPrinting).toHaveBeenCalled();
       expect(mockClient.resume).toHaveBeenCalled();
@@ -312,6 +313,9 @@ describe('FlashForgeDevice handleButton', () => {
     });
 
     it('should handle client errors during resume', async () => {
+      // Is in paused state
+      device.getStoreValue = jest.fn().mockReturnValue(true);
+      
       const error = new Error('Resume failed');
       mockClient.resume.mockRejectedValue(error);
 

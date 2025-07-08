@@ -42,8 +42,13 @@ export class FlashForgeDevice extends Homey.Device {
 
     if (isPrinting) {
       if (value) {
-        this.setStoreValue(STORE_KEYS.IS_PAUSED, false)
-        await this.client.resume();
+        if(this.getStoreValue(STORE_KEYS.IS_PAUSED)) {
+          this.setStoreValue(STORE_KEYS.IS_PAUSED, false)
+          await this.client.resume();
+        }
+        else {
+          this.log("Pressed button while not being in a previous paused state.")
+        }
       } else {
         this.setStoreValue(STORE_KEYS.IS_PAUSED, true)
         await this.client.pause();
@@ -62,49 +67,63 @@ export class FlashForgeDevice extends Homey.Device {
     try { 
       const status = await this.client.getStatus();
       this.online();
-      this.setStoreValue(STORE_KEYS.IS_PRINTING, status.isPrinting)
-
       this.updateTemperatures(status)
+      
       if (status.isPrinting) {
-        this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, true)
-        this.updateCapabilities(status.printPercent, true);
+        this.updatePrintingState(status.printPercent);
         return;
       }
 
-      const isDelayedPrinting = this.getStoreValue(STORE_KEYS.IS_DELAYED_PRINTING);
-      if (isDelayedPrinting) {
+      // When the device print state is officially finished
+      // We track our internal state to finish cooldown period
+      // And just update the percentage to 100% as that is not always fail proof in the api.
+      if (this.isPrinting()) {
         if (this.isCooledDown(status.bedTemp) ) {
           await this.cooledDown()
           return;
         }
-        // Printing officially done according to the printer, but keep at 100%
-        this.updateCapabilities(100, false);
-        return;
-      }
 
+        this.printingIsFinished();
+      }
     } catch (error: unknown) {
       this.handleError(error);
     } 
+  }
+
+  isPrinting(): boolean {
+    return this.getStoreValue(STORE_KEYS.IS_PRINTING);
+  }
+
+  updatePrintingState(percentage: number) {
+    this.setStoreValue(STORE_KEYS.IS_PRINTING, true)
+    this.updateCapabilities(percentage, true);
+  }
+
+  printingIsFinished() {
+      // Printing officially done according to the printer, but keep at 100%
+      this.updateCapabilities(100, false);
   }
   
   handleError(error: unknown) {
     const connectionFailedRetry = (this.getStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD) as number | undefined) ?? 0;
 
     if (error instanceof ConnectionFailedError) {
-      if ( connectionFailedRetry > 2 ) {
-        this.offline();
-      }
       this.log("Connection failed: printer might be powered off, retry: " + connectionFailedRetry);
     } else {
       this.log("Unexpected error, turn off and reset (could be powered off printer), retry: " + connectionFailedRetry);
     }
-
+    
     this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, connectionFailedRetry + 1);
+
+    if ( connectionFailedRetry > 2 ) {
+      this.offline();
+    }
+
   }
 
   async cooledDown() {
-    this.setStoreValue(STORE_KEYS.IS_DELAYED_PRINTING, false)
-        
+    this.setStoreValue(STORE_KEYS.IS_PRINTING, false)
+
     const triggerCard = this.homey.flow.getDeviceTriggerCard("finished_printing_cooled_down_" + this.deviceName)
     triggerCard.trigger(this, {}, {})
 
@@ -153,8 +172,7 @@ export class FlashForgeDevice extends Homey.Device {
 
 
 export enum STORE_KEYS {
-  IS_PAUSED = "IS_PRINTING_PAUSE",
-  IS_PRINTING = "IS_PRINTING",
-  IS_DELAYED_PRINTING = "IS_DELAYED_PRINTING",
+  IS_PAUSED = "IS_PAUSED",
+  IS_PRINTING = "IS_PRINTING", // This is an internal state that does sync with the printer isPrinting. It's also used for cooled down mode.
   CONNECTION_FAILED_THRESHOLD  = "CONNECTION_FAILED_THRESHOLD"
 }

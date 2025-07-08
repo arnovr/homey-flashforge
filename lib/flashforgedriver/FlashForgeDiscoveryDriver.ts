@@ -8,9 +8,9 @@ export class FlashForgeDiscoveryDriver extends Homey.Driver {
     }
   
     async onPairListDevices() {
-      const x = new FlashForgePrinterDiscovery();
+      const flashForgeDiscovery = new FlashForgePrinterDiscovery();
       
-      const printers = await x.discoverPrintersAsync() as FlashForgePrinter[]
+      const printers = await flashForgeDiscovery.discoverPrintersAsync() as FlashForgePrinter[]
       
       return printers.map(p => {
         return {
