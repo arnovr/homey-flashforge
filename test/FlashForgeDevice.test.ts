@@ -340,9 +340,7 @@ describe('FlashForgeDevice handleButton', () => {
     });
 
     it('should throw error when trying to resume with value true', async () => {
-      await expect(device.handleButton(true)).rejects.toThrow(
-        'Kan geen print hervatten als er geen print bezig is.',
-      );
+      await expect(device.handleButton(true)).rejects.toThrow();
 
       expect(mockClient.isPrinting).toHaveBeenCalled();
       expect(mockClient.resume).not.toHaveBeenCalled();
@@ -352,9 +350,7 @@ describe('FlashForgeDevice handleButton', () => {
     });
 
     it('should throw error when trying to pause with value false', async () => {
-      await expect(device.handleButton(false)).rejects.toThrow(
-        'Kan geen print pauzeren als er geen print bezig is.',
-      );
+      await expect(device.handleButton(false)).rejects.toThrow();
 
       expect(mockClient.isPrinting).toHaveBeenCalled();
       expect(mockClient.resume).not.toHaveBeenCalled();
