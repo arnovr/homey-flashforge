@@ -1,7 +1,7 @@
 {
   "settings": {
     "ip_address": "IP Address",
-    "title_3m": "FlashForge Adventurer 5M",
+    "title": "FlashForge Adventurer",
     "subtitle": "Add a new 3d printer",
     "add_device": "Add device"
   }
