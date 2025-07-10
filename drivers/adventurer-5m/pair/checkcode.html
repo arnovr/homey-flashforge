@@ -1,0 +1,51 @@
+<script>
+    function isValidCheckCode(code) {
+        return /^[A-Za-z0-9]{8}$/.test(code);
+    }
+
+    document.getElementById('next-button').addEventListener('click', async () => {
+        event.preventDefault();
+        const checkCode = document.getElementById('check_code').value.trim();
+        const error = document.getElementById('error');
+
+        if (!isValidCheckCode(checkCode)) {
+            error.textContent = 'Invalid check code. Use exactly 8 alphanumeric characters.';
+            return;
+        }
+
+        try {
+            await Homey.emit('saveDevice', {
+                checkCode,
+            });
+        } catch (e) {
+            error.textContent = e.message || 'Something went wrong.';
+        }
+    });
+
+    Homey.on("createDevice", (device) => {
+        Homey.createDevice(device)
+            .then(function (result) {
+                Homey.done();
+            })
+            .catch(function (error) {
+                Homey.alert(error);
+            });
+    })
+</script>
+
+<div>
+    <header class="homey-header">
+        <h1 class="homey-title" data-i18n="settings.title"></h1>
+        <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
+    </header>
+    <form class="homey-form">
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="check_code" data-i18n="settings.check_code"></label>
+            <input class="homey-form-input" id="check_code" name="check_code" placeholder="Enter 8-character code"
+                type="text" maxlength="8" pattern="[A-Za-z0-9]{8}" />
+            <div id="error" class="homey-form-error" style="color: red; margin-top: 4px;"></div>
+
+        </div>
+        <button id="next-button" class="homey-button-primary-full" data-i18n="settings.add_device"></button>
+    </form>
+</div>

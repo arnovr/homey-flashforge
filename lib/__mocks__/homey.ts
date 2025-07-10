@@ -8,6 +8,9 @@ export class Device {
       getTriggerCard: jest.fn().mockReturnValue({
         trigger: jest.fn(),
       }),
+      getDeviceTriggerCard: jest.fn().mockReturnValue({
+        trigger: jest.fn(),
+      }),
     },
   };
 }
