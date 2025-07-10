@@ -43,5 +43,8 @@
   },
   "0.0.15": {
     "en": "Fix the tests"
+  },
+  "0.0.16": {
+    "en": "Fix the problems of the error when creating a device. And add dutch"
   }
 }
