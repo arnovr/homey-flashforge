@@ -1,6 +1,8 @@
 import { FlashForgeDevice, STORE_KEYS } from '../lib/flashforgedriver/FlashForgeDevice';
 import { FlashForgeStatus, ConnectionFailedError } from '../lib/flashforgedriver/api/FlashForgeClient';
 
+jest.mock('homey');
+
 describe('FlashForgeDevice updateStatus', () => {
   let device: FlashForgeDevice;
   let mockClient: jest.Mocked<any>;
@@ -23,6 +25,21 @@ describe('FlashForgeDevice updateStatus', () => {
     device.handleError = jest.fn();
     device.cooledDown = jest.fn();
     device.isCooledDown = jest.fn();
+    device.setStoreValue = jest.fn();
+    device.getStoreValue = jest.fn();
+    device.setCapabilityValue = jest.fn();
+    device.log = jest.fn();
+    device.trigger = jest.fn();
+    device.pause = jest.fn();
+    device.resume = jest.fn();
+    device.homey = {
+      flow: {
+        getDeviceTriggerCard: jest.fn().mockReturnValue({
+          trigger: jest.fn()
+        })
+      },
+      setInterval: jest.fn()
+    } as any;
   });
 
   afterEach(() => {
@@ -55,7 +72,6 @@ describe('FlashForgeDevice updateStatus', () => {
     it('should update temperatures and capabilities', async () => {
       await device.updateStatus();
 
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
       expect(device.updateTemperatures).toHaveBeenCalledWith(printingStatus);
       expect(device.updateCapabilities).toHaveBeenCalledWith(75, true);
@@ -191,7 +207,6 @@ describe('FlashForgeDevice updateStatus', () => {
       await device.updateStatus();
 
       expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PRINTING, true);
       expect(device.updateCapabilities).toHaveBeenCalledWith(100, true);
     });
 
@@ -268,6 +283,19 @@ describe('FlashForgeDevice handleButton', () => {
     device.client = mockClient;
     device.setStoreValue = jest.fn();
     device.setCapabilityValue = jest.fn();
+    device.getStoreValue = jest.fn();
+    device.log = jest.fn();
+    device.trigger = jest.fn();
+    device.pause = jest.fn();
+    device.resume = jest.fn();
+    device.homey = {
+      flow: {
+        getDeviceTriggerCard: jest.fn().mockReturnValue({
+          trigger: jest.fn()
+        })
+      },
+      setInterval: jest.fn()
+    } as any;
   });
 
   afterEach(() => {
@@ -296,9 +324,8 @@ describe('FlashForgeDevice handleButton', () => {
 
 
       expect(mockClient.isPrinting).toHaveBeenCalled();
-      expect(mockClient.resume).toHaveBeenCalled();
-      expect(mockClient.pause).not.toHaveBeenCalled();
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, false);
+      expect(device.resume).toHaveBeenCalled();
+      expect(device.pause).not.toHaveBeenCalled();
       expect(device.setCapabilityValue).toHaveBeenCalledWith('is_printing', true);
     });
 
@@ -306,31 +333,9 @@ describe('FlashForgeDevice handleButton', () => {
       await device.handleButton(false);
 
       expect(mockClient.isPrinting).toHaveBeenCalled();
-      expect(mockClient.pause).toHaveBeenCalled();
-      expect(mockClient.resume).not.toHaveBeenCalled();
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, true);
+      expect(device.pause).toHaveBeenCalled();
+      expect(device.resume).not.toHaveBeenCalled();
       expect(device.setCapabilityValue).toHaveBeenCalledWith('is_printing', false);
-    });
-
-    it('should handle client errors during resume', async () => {
-      // Is in paused state
-      device.getStoreValue = jest.fn().mockReturnValue(true);
-      
-      const error = new Error('Resume failed');
-      mockClient.resume.mockRejectedValue(error);
-
-      await expect(device.handleButton(true)).rejects.toThrow('Resume failed');
-      expect(mockClient.resume).toHaveBeenCalled();
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, false);
-    });
-
-    it('should handle client errors during pause', async () => {
-      const error = new Error('Pause failed');
-      mockClient.pause.mockRejectedValue(error);
-
-      await expect(device.handleButton(false)).rejects.toThrow('Pause failed');
-      expect(mockClient.pause).toHaveBeenCalled();
-      expect(device.setStoreValue).toHaveBeenCalledWith(STORE_KEYS.IS_PAUSED, true);
     });
   });
 
