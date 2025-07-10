@@ -2,8 +2,8 @@
     "id": "is_printing",
     "type": "boolean",
     "title": { 
-      "en": "Is printing",
-      "nl": "Aan het printen"
+      "en": "Printing",
+      "nl": "Printen"
     },
     "getable": true,
     "setable": false,

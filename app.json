@@ -224,14 +224,14 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": null
     },
     "is_printing": {
       "id": "is_printing",
       "type": "boolean",
       "title": {
         "en": "Is printing",
-        "nl": "Aan het printen"
+        "nl": "Is aan het printen"
       },
       "getable": true,
       "setable": false,
@@ -251,7 +251,8 @@
       },
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "icon": "/assets/capability-icons/percentage.svg"
     }
   }
 }

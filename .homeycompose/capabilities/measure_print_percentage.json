@@ -8,5 +8,6 @@
     "units": { "en": "%" },
     "min": 0,
     "max": 100,
-    "step": 1
+    "step": 1,
+    "icon": "/assets/capability-icons/percentage.svg"
   }
