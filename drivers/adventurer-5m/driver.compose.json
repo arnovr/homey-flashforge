@@ -13,8 +13,9 @@
   ],
   "capabilitiesOptions": {
     "onoff": {
-      "getable": false,
-      "setable": false
+      "getable": true,
+      "setable": false,
+      "uiComponent": "button"
     },
 		"measure_temperature.bed": {
 			"title": {

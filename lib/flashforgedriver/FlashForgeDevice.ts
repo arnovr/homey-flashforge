@@ -21,9 +21,9 @@ export class FlashForgeDevice extends Homey.Device {
 
     await this.updateStatus();
 
-    this.registerCapabilityListener("onoff", () => {
-      this.log("On off is pressed")
-    });
+    // this.registerCapabilityListener("onoff", () => {
+    //   this.log("On off is pressed")
+    // });
 
     this.registerCapabilityListener("is_printing", this.handleButton.bind(this));
 

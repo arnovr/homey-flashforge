@@ -152,8 +152,9 @@
       ],
       "capabilitiesOptions": {
         "onoff": {
-          "getable": false,
-          "setable": false
+          "getable": true,
+          "setable": false,
+          "uiComponent": "button"
         },
         "measure_temperature.bed": {
           "title": {
@@ -232,7 +233,8 @@
         "nl": "Aan het printen"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "uiComponent": "button"
     },
     "measure_print_percentage": {
       "id": "measure_print_percentage",
