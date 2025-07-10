@@ -6,6 +6,6 @@
       "nl": "Printen"
     },
     "getable": true,
-    "setable": false,
+    "setable": true,
     "uiComponent": "button"
   }

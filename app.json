@@ -230,11 +230,11 @@
       "id": "is_printing",
       "type": "boolean",
       "title": {
-        "en": "Is printing",
-        "nl": "Is aan het printen"
+        "en": "Printing",
+        "nl": "Printen"
       },
       "getable": true,
-      "setable": false,
+      "setable": true,
       "uiComponent": "button"
     },
     "measure_print_percentage": {

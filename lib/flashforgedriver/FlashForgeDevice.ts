@@ -10,7 +10,7 @@ export class FlashForgeDevice extends Homey.Device {
   async onInit() {
     this.log('Initialize device');
     this.setCapabilityValue('is_online', false);
-    this.setCapabilityValue('is_printing', 0);
+    this.setCapabilityValue('measure_print_percentage', 0);
 
     const settings = this.getSettings() as PrinterSettings
     const data = this.getData();
