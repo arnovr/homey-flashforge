@@ -5,6 +5,7 @@
 
     document.getElementById('next-button').addEventListener('click', async () => {
         event.preventDefault();
+        const nextButton = document.getElementById('next-button');
         const checkCode = document.getElementById('check_code').value.trim();
         const error = document.getElementById('error');
 
@@ -12,13 +13,25 @@
             error.textContent = 'Invalid check code. Use exactly 8 alphanumeric characters.';
             return;
         }
+        
+        nextButton.classList.add('is-loading' ,'is-disabled');
+        nextButton.disabled = true; // Optional: prevent double clicks
 
         try {
-            await Homey.emit('saveDevice', {
-                checkCode,
-            });
+            const result = await Homey.emit('saveDevice', { checkCode });
+
+            if (!result || result.error) {
+                // Optional: you can use a convention where `result.error` is returned by Homey backend
+                error.textContent = result.error || 'Failed to save device.';
+                return;
+            }
         } catch (e) {
-            error.textContent = e.message || 'Something went wrong.';
+            console.error('Save device failed:', e);
+            error.textContent = e.message || 'Something went wrong while saving the device.';
+        } finally {
+            // Remove loading state
+            nextButton.classList.remove('is-loading', 'is-disabled');
+            nextButton.disabled = false;
         }
     });
 
