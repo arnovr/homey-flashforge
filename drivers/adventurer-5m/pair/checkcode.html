@@ -15,21 +15,12 @@
         }
         
         nextButton.classList.add('is-loading' ,'is-disabled');
-        nextButton.disabled = true; // Optional: prevent double clicks
-
+        nextButton.disabled = true;
         try {
-            const result = await Homey.emit('saveDevice', { checkCode });
-
-            if (!result || result.error) {
-                // Optional: you can use a convention where `result.error` is returned by Homey backend
-                error.textContent = result.error || 'Failed to save device.';
-                return;
-            }
+            await Homey.emit('saveDevice', { checkCode });
         } catch (e) {
-            console.error('Save device failed:', e);
             error.textContent = e.message || 'Something went wrong while saving the device.';
         } finally {
-            // Remove loading state
             nextButton.classList.remove('is-loading', 'is-disabled');
             nextButton.disabled = false;
         }
@@ -48,8 +39,7 @@
 
 <div>
     <header class="homey-header">
-        <h1 class="homey-title" data-i18n="settings.title"></h1>
-        <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
+        <p class="homey-subtitle" data-i18n="settings.checkcode.description"></p>
     </header>
     <form class="homey-form">
         <div class="homey-form-group">

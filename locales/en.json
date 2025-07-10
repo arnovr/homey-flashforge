@@ -1,6 +1,9 @@
 {
   "settings": {
     "ip_address": "IP Address",
+    "checkcode": {
+      "description": "Enter your Printer ID, which you can find under Settings > Network Mode."
+    },
     "title": "FlashForge Adventurer",
     "subtitle": "Add a new 3d printer",
     "add_device": "Add device"
