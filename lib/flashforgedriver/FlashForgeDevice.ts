@@ -9,7 +9,7 @@ export class FlashForgeDevice extends Homey.Device {
 
   async onInit() {
     this.log('Initialize device');
-    this.setCapabilityValue('onoff', false);
+    this.setCapabilityValue('is_online', false);
 
     const settings = this.getSettings() as PrinterSettings
     const data = this.getData();
@@ -21,7 +21,7 @@ export class FlashForgeDevice extends Homey.Device {
 
     await this.updateStatus();
 
-    // this.registerCapabilityListener("onoff", () => {
+    // this.registerCapabilityListener("is_online", () => {
     //   this.log("On off is pressed")
     // });
 
@@ -145,12 +145,12 @@ export class FlashForgeDevice extends Homey.Device {
   offline() {
     this.updateCapabilities(0, false);
     this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, 0);
-    this.setCapabilityValue("onoff", false);
+    this.setCapabilityValue("is_online", false);
   }
 
   online() { 
     this.setStoreValue(STORE_KEYS.CONNECTION_FAILED_THRESHOLD, 0);
-    this.setCapabilityValue("onoff", true);
+    this.setCapabilityValue("is_online", true);
   }
 
   isCooledDown(bedTemperature: number) {
