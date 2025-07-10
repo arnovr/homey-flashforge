@@ -6,6 +6,20 @@
                 "en": "Finished Printing and has cooled down",
                 "nl": "Klaar met printen, en is afgekoeld."
             }
+        },
+        {
+            "id": "printing_paused_5m",
+            "title": {
+                "en": "Printing is paused",
+                "nl": "Printen is gepauseerd"
+            }
+        },
+        {
+            "id": "printing_resumed_5m",
+            "title": {
+                "en": "Printing is resumed",
+                "nl": "Printen is hervat"
+            }
         }
     ]
   }

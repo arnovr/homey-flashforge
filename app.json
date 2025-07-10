@@ -56,10 +56,66 @@
         ]
       },
       {
+        "id": "printing_paused_34",
+        "title": {
+          "en": "Printing is paused",
+          "nl": "Printen is gepauseerd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-3-4"
+          }
+        ]
+      },
+      {
+        "id": "printing_resumed_34",
+        "title": {
+          "en": "Printing is resumed",
+          "nl": "Printen is hervat"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-3-4"
+          }
+        ]
+      },
+      {
         "id": "finished_printing_cooled_down_5m",
         "title": {
           "en": "Finished Printing and has cooled down",
           "nl": "Klaar met printen, en is afgekoeld."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-5m"
+          }
+        ]
+      },
+      {
+        "id": "printing_paused_5m",
+        "title": {
+          "en": "Printing is paused",
+          "nl": "Printen is gepauseerd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=adventurer-5m"
+          }
+        ]
+      },
+      {
+        "id": "printing_resumed_5m",
+        "title": {
+          "en": "Printing is resumed",
+          "nl": "Printen is hervat"
         },
         "args": [
           {

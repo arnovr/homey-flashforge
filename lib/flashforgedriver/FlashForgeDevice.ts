@@ -22,10 +22,6 @@ export class FlashForgeDevice extends Homey.Device {
 
     await this.updateStatus();
 
-    // this.registerCapabilityListener("is_online", () => {
-    //   this.log("On off is pressed")
-    // });
-
     this.registerCapabilityListener("is_printing", this.handleButton.bind(this));
 
     this.pollInterval = this.homey.setInterval(() => {
@@ -44,15 +40,13 @@ export class FlashForgeDevice extends Homey.Device {
     if (isPrinting) {
       if (value) {
         if(this.getStoreValue(STORE_KEYS.IS_PAUSED)) {
-          this.setStoreValue(STORE_KEYS.IS_PAUSED, false)
-          await this.client.resume();
+          this.resume()
         }
         else {
           this.log("Pressed button while not being in a previous paused state.")
         }
       } else {
-        this.setStoreValue(STORE_KEYS.IS_PAUSED, true)
-        await this.client.pause();
+        await this.pause()
       }
       await this.setCapabilityValue("is_printing", value);
     } else {
@@ -124,10 +118,24 @@ export class FlashForgeDevice extends Homey.Device {
   async cooledDown() {
     this.setStoreValue(STORE_KEYS.IS_PRINTING, false)
 
-    const triggerCard = this.homey.flow.getDeviceTriggerCard("finished_printing_cooled_down_" + this.deviceName)
-    triggerCard.trigger(this, {}, {})
+    this.trigger("finished_printing_cooled_down");
 
     this.updateCapabilities(0, false);
+  }
+
+  async pause() {
+    if (!this.client) return;
+
+    this.setStoreValue(STORE_KEYS.IS_PAUSED, true)
+    this.trigger("printing_paused")
+    return await this.client.pause();
+  }
+  async resume() {
+    if (!this.client) return;
+
+    this.setStoreValue(STORE_KEYS.IS_PAUSED, false)
+    this.trigger("printing_resumed")
+    return await this.client.resume();
   }
 
   updateTemperatures(status: FlashForgeStatus) {
@@ -165,6 +173,15 @@ export class FlashForgeDevice extends Homey.Device {
 
   async onUninit() {
     if (this.pollInterval) clearInterval(this.pollInterval);
+  }
+
+  /**
+   * Automatically appends the device name as _34
+   * @param name String
+   */
+  trigger(name: String) {
+    const triggerCard = this.homey.flow.getDeviceTriggerCard(name + "_" + this.deviceName)
+    triggerCard.trigger(this, {}, {})
   }
 }
 
