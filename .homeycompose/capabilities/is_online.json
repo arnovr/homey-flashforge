@@ -1,0 +1,11 @@
+{
+    "id": "is_online",
+    "type": "boolean",
+    "title": { 
+      "en": "Is online",
+      "nl": "Is online"
+    },
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor"
+  }

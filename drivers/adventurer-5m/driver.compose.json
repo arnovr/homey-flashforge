@@ -5,18 +5,13 @@
   },
   "class": "other",
   "capabilities": [
-    "onoff",
+    "is_online",
     "is_printing",
     "measure_temperature.bed",
     "measure_temperature.extruder",
     "measure_print_percentage"
   ],
   "capabilitiesOptions": {
-    "onoff": {
-      "getable": true,
-      "setable": false,
-      "uiComponent": "button"
-    },
 		"measure_temperature.bed": {
 			"title": {
 				"en": "Bed Temperature",
