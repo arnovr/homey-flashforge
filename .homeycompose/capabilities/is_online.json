@@ -1,11 +1,21 @@
 {
-    "id": "is_online",
-    "type": "boolean",
-    "title": { 
-      "en": "Is online",
-      "nl": "Is online"
-    },
-    "getable": true,
-    "setable": false,
-    "uiComponent": null
-  }
+  "id": "is_online",
+  "type": "boolean",
+  "title": {
+    "en": "Is online",
+    "nl": "Is online",
+    "da": "Er online",
+    "de": "Ist online",
+    "es": "Está en línea",
+    "fr": "Est en ligne",
+    "it": "È online",
+    "no": "Er online",
+    "sv": "Är online",
+    "pl": "Jest online",
+    "ru": "Онлайн",
+    "ko": "온라인 상태"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}

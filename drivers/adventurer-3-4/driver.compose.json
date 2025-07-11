@@ -1,7 +1,17 @@
 {
   "name": {
     "en": "Adventurer 3 / 4",
-    "nl": "Adventurer 3 / 4"
+    "nl": "Adventurer 3 / 4",
+    "da": "Eventyrer 3 / 4",
+    "de": "Abenteurer 3 / 4",
+    "es": "Aventurero 3 / 4",
+    "fr": "Aventurier 3 / 4",
+    "it": "Avventuriero 3 / 4",
+    "no": "Eventyrer 3 / 4",
+    "sv": "Äventyrare 3 / 4",
+    "pl": "Poszukiwacz Przygód 3 / 4",
+    "ru": "Путешественник 3 / 4",
+    "ko": "모험가 3 / 4"
   },
   "class": "other",
   "capabilities": [
@@ -12,19 +22,38 @@
     "measure_print_percentage"
   ],
   "capabilitiesOptions": {
-
-		"measure_temperature.bed": {
-			"title": {
-				"en": "Bed Temperature",
-				"nl": "Bed Temperatuur"
-			}
-		},
-		"measure_temperature.extruder": {
-			"title": {
-				"en": "Extruder Temperature",
-				"nl": "Extruder Temperatuur"
-			}
-		}
+    "measure_temperature.bed": {
+      "title": {
+        "en": "Bed Temperature",
+        "nl": "Bed Temperatuur",
+        "da": "Sengtemperatur",
+        "de": "Betttemperatur",
+        "es": "Temperatura de la cama",
+        "fr": "Température du lit",
+        "it": "Temperatura del piano",
+        "no": "Sengtemperatur",
+        "sv": "Sängtemperatur",
+        "pl": "Temperatura łóżka",
+        "ru": "Температура стола",
+        "ko": "베드 온도"
+      }
+    },
+    "measure_temperature.extruder": {
+      "title": {
+        "en": "Extruder Temperature",
+        "nl": "Extruder Temperatuur",
+        "da": "Ekstruder temperatur",
+        "de": "Extrudertemperatur",
+        "es": "Temperatura del extrusor",
+        "fr": "Température de l'extrudeuse",
+        "it": "Temperatura dell'estrusore",
+        "no": "Ekstrudertemperatur",
+        "sv": "Extrudertemperatur",
+        "pl": "Temperatura ekstrudera",
+        "ru": "Температура экструдера",
+        "ko": "익스트루더 온도"
+      }
+    }
   },
   "platforms": [
     "local"

@@ -1,7 +1,17 @@
 {
   "name": {
     "en": "Adventurer 5M / 5M PRO",
-    "nl": "Adventurer 5M / 5M PRO"
+    "nl": "Adventurer 5M / 5M PRO",
+    "da": "Eventyrer 5M / 5M PRO",
+    "de": "Abenteurer 5M / 5M PRO",
+    "es": "Aventurero 5M / 5M PRO",
+    "fr": "Aventurier 5M / 5M PRO",
+    "it": "Avventuriero 5M / 5M PRO",
+    "no": "Eventyrer 5M / 5M PRO",
+    "sv": "Äventyrare 5M / 5M PRO",
+    "pl": "Poszukiwacz przygód 5M / 5M PRO",
+    "ru": "Искатель приключений 5M / 5M PRO",
+    "ko": "모험가 5M / 5M PRO"
   },
   "class": "other",
   "capabilities": [
@@ -12,18 +22,38 @@
     "measure_print_percentage"
   ],
   "capabilitiesOptions": {
-		"measure_temperature.bed": {
-			"title": {
-				"en": "Bed Temperature",
-				"nl": "Bed Temperatuur"
-			}
-		},
-		"measure_temperature.extruder": {
-			"title": {
-				"en": "Extruder Temperature",
-				"nl": "Extruder Temperatuur"
-			}
-		}
+    "measure_temperature.bed": {
+      "title": {
+        "en": "Bed Temperature",
+        "nl": "Bed Temperatuur",
+        "da": "Seng Temperatuur",
+        "de": "Betttemperatur",
+        "es": "Temperatura de la cama",
+        "fr": "Température du lit",
+        "it": "Temperatura del letto",
+        "no": "Seng temperatur",
+        "sv": "Bäddtemperatur",
+        "pl": "Temperatura łóżka",
+        "ru": "Температура стола",
+        "ko": "침대 온도"
+      }
+    },
+    "measure_temperature.extruder": {
+      "title": {
+        "en": "Extruder Temperature",
+        "nl": "Extruder Temperatuur",
+        "da": "Ekstruder Temperatur",
+        "de": "Extrudertemperatur",
+        "es": "Temperatura del extrusor",
+        "fr": "Température de l'extrudeuse",
+        "it": "Temperatura dell'estrusore",
+        "no": "Ekstruder temperatur",
+        "sv": "Extrudertemperatur",
+        "pl": "Temperatura ekstrudera",
+        "ru": "Температура экструдера",
+        "ko": "압출기 온도"
+      }
+    }
   },
   "platforms": [
     "local"
@@ -40,8 +70,12 @@
     {
       "id": "list_my_devices",
       "template": "list_devices",
-      "navigation": { "next": "checkcode" },
-      "options": { "singular": true }
+      "navigation": {
+        "next": "checkcode"
+      },
+      "options": {
+        "singular": true
+      }
     },
     {
       "id": "checkcode"

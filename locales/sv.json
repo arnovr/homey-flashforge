@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "ip_address": "IP-adress",
+    "checkcode": {
+      "description": "Ange ditt skrivar-ID, som du hittar under Inställningar > Nätverksläge."
+    },
+    "title": "FlashForge Adventurer",
+    "subtitle": "Lägg till en ny 3D-skrivare",
+    "add_device": "Lägg till enhet"
+  }
+}

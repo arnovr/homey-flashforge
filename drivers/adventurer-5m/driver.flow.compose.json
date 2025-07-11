@@ -1,25 +1,55 @@
 {
-    "triggers": [
-        {
-            "id": "finished_printing_cooled_down_5m",
-            "title": {
-                "en": "Finished Printing and has cooled down",
-                "nl": "Klaar met printen, en is afgekoeld."
-            }
-        },
-        {
-            "id": "printing_paused_5m",
-            "title": {
-                "en": "Printing is paused",
-                "nl": "Printen is gepauseerd"
-            }
-        },
-        {
-            "id": "printing_resumed_5m",
-            "title": {
-                "en": "Printing is resumed",
-                "nl": "Printen is hervat"
-            }
-        }
-    ]
-  }
+  "triggers": [
+    {
+      "id": "finished_printing_cooled_down_5m",
+      "title": {
+        "en": "Finished Printing and has cooled down",
+        "nl": "Klaar met printen, en is afgekoeld.",
+        "da": "Udskrivning er færdig og er kølet ned",
+        "de": "Druck abgeschlossen und abgekühlt",
+        "es": "Impresión finalizada y se ha enfriado",
+        "fr": "Impression terminée et refroidie",
+        "it": "Stampa terminata e raffreddata",
+        "no": "Utskrift er ferdig og har avkjølt seg",
+        "sv": "Utskrift klar och har svalnat",
+        "pl": "Zakończono drukowanie i jest ostygnięty",
+        "ru": "Печать завершена и охлаждена",
+        "ko": "프린팅 완료 및 식음"
+      }
+    },
+    {
+      "id": "printing_paused_5m",
+      "title": {
+        "en": "Printing is paused",
+        "nl": "Printen is gepauseerd",
+        "da": "Udskrivning er sat på pause",
+        "de": "Drucken ist pausiert",
+        "es": "Impresión está en pausa",
+        "fr": "Impression en pause",
+        "it": "Stampa in pausa",
+        "no": "Utskrift er satt på pause",
+        "sv": "Utskrift pausad",
+        "pl": "Drukowanie jest wstrzymane",
+        "ru": "Печать приостановлена",
+        "ko": "프린팅이 일시 중단됨"
+      }
+    },
+    {
+      "id": "printing_resumed_5m",
+      "title": {
+        "en": "Printing is resumed",
+        "nl": "Printen is hervat",
+        "da": "Udskrivning genoptaget",
+        "de": "Drucken wurde fortgesetzt",
+        "es": "Impresión reanudada",
+        "fr": "Impression reprise",
+        "it": "Stampa ripresa",
+        "no": "Utskrift gjenopptatt",
+        "sv": "Utskrift återupptagen",
+        "pl": "Wznowiono drukowanie",
+        "ru": "Печать возобновлена",
+        "ko": "프린팅이 재개됨"
+      }
+    }
+  ]
+}

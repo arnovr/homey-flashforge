@@ -10,11 +10,31 @@
   "brandColor": "#00A0E9",
   "name": {
     "en": "FlashForge",
-    "nl": "FlashForge"
+    "nl": "FlashForge",
+    "da": "FlashForge",
+    "de": "FlashForge",
+    "es": "FlashForge",
+    "fr": "FlashForge",
+    "it": "FlashForge",
+    "no": "FlashForge",
+    "sv": "FlashForge",
+    "pl": "FlashForge",
+    "ru": "FlashForge",
+    "ko": "FlashForge"
   },
   "description": {
     "en": "Connect to your FlashForge Adventurer 3d printers",
-    "nl": "Verbind met je FlashForge Adventurer 3d printers"
+    "nl": "Verbind met je FlashForge Adventurer 3d printers",
+    "da": "Opret forbindelse til dine FlashForge Adventurer 3d-printere",
+    "de": "Verbinden Sie sich mit Ihren FlashForge Adventurer 3D-Druckern",
+    "es": "Conéctate a tus impresoras 3D FlashForge Adventurer",
+    "fr": "Connectez-vous à vos imprimantes 3D FlashForge Adventurer",
+    "it": "Collegati alle tue stampanti 3D FlashForge Adventurer",
+    "no": "Koble til dine FlashForge Adventurer 3D-skrivere",
+    "sv": "Anslut till dina FlashForge Adventurer 3D-skrivare",
+    "pl": "Podłącz się do swoich drukarek 3D FlashForge Adventurer",
+    "ru": "Подключитесь к вашим 3D-принтерам FlashForge Adventurer",
+    "ko": "FlashForge Adventurer 3D 프린터에 연결하세요"
   },
   "category": [
     "appliances"
@@ -45,7 +65,17 @@
         "id": "finished_printing_cooled_down_34",
         "title": {
           "en": "Finished Printing and has cooled down",
-          "nl": "Klaar met printen, en is afgekoeld."
+          "nl": "Klaar met printen, en is afgekoeld.",
+          "da": "Færdig med at printe og er kølet ned",
+          "de": "Druck abgeschlossen und abgekühlt",
+          "es": "Impresión terminada y se ha enfriado",
+          "fr": "Impression terminée et refroidie",
+          "it": "Stampa terminata e raffreddata",
+          "no": "Ferdig med utskrift og har kjølt seg ned",
+          "sv": "Utskrift klar och har svalnat",
+          "pl": "Zakończono drukowanie i ostygło",
+          "ru": "Печать завершена и остыла",
+          "ko": "인쇄가 완료되고 식었습니다"
         },
         "args": [
           {
@@ -59,7 +89,17 @@
         "id": "printing_paused_34",
         "title": {
           "en": "Printing is paused",
-          "nl": "Printen is gepauseerd"
+          "nl": "Printen is gepauseerd",
+          "da": "Udskrivning er sat på pause",
+          "de": "Druck wird pausiert",
+          "es": "Impresión pausada",
+          "fr": "Impression en pause",
+          "it": "Stampa in pausa",
+          "no": "Utskrift er satt på pause",
+          "sv": "Utskrift pausad",
+          "pl": "Drukowanie jest wstrzymane",
+          "ru": "Печать приостановлена",
+          "ko": "인쇄가 일시 중지되었습니다"
         },
         "args": [
           {
@@ -73,7 +113,17 @@
         "id": "printing_resumed_34",
         "title": {
           "en": "Printing is resumed",
-          "nl": "Printen is hervat"
+          "nl": "Printen is hervat",
+          "da": "Udskrivning er genoptaget",
+          "de": "Druck wird fortgesetzt",
+          "es": "Impresión reanudada",
+          "fr": "Impression reprise",
+          "it": "Stampa ripresa",
+          "no": "Utskrift gjenopptas",
+          "sv": "Utskrift återupptagen",
+          "pl": "Drukowanie zostało wznowione",
+          "ru": "Печать возобновлена",
+          "ko": "인쇄가 재개되었습니다"
         },
         "args": [
           {
@@ -87,7 +137,17 @@
         "id": "finished_printing_cooled_down_5m",
         "title": {
           "en": "Finished Printing and has cooled down",
-          "nl": "Klaar met printen, en is afgekoeld."
+          "nl": "Klaar met printen, en is afgekoeld.",
+          "da": "Udskrivning er færdig og er kølet ned",
+          "de": "Druck abgeschlossen und abgekühlt",
+          "es": "Impresión finalizada y se ha enfriado",
+          "fr": "Impression terminée et refroidie",
+          "it": "Stampa terminata e raffreddata",
+          "no": "Utskrift er ferdig og har avkjølt seg",
+          "sv": "Utskrift klar och har svalnat",
+          "pl": "Zakończono drukowanie i jest ostygnięty",
+          "ru": "Печать завершена и охлаждена",
+          "ko": "프린팅 완료 및 식음"
         },
         "args": [
           {
@@ -101,7 +161,17 @@
         "id": "printing_paused_5m",
         "title": {
           "en": "Printing is paused",
-          "nl": "Printen is gepauseerd"
+          "nl": "Printen is gepauseerd",
+          "da": "Udskrivning er sat på pause",
+          "de": "Drucken ist pausiert",
+          "es": "Impresión está en pausa",
+          "fr": "Impression en pause",
+          "it": "Stampa in pausa",
+          "no": "Utskrift er satt på pause",
+          "sv": "Utskrift pausad",
+          "pl": "Drukowanie jest wstrzymane",
+          "ru": "Печать приостановлена",
+          "ko": "프린팅이 일시 중단됨"
         },
         "args": [
           {
@@ -115,7 +185,17 @@
         "id": "printing_resumed_5m",
         "title": {
           "en": "Printing is resumed",
-          "nl": "Printen is hervat"
+          "nl": "Printen is hervat",
+          "da": "Udskrivning genoptaget",
+          "de": "Drucken wurde fortgesetzt",
+          "es": "Impresión reanudada",
+          "fr": "Impression reprise",
+          "it": "Stampa ripresa",
+          "no": "Utskrift gjenopptatt",
+          "sv": "Utskrift återupptagen",
+          "pl": "Wznowiono drukowanie",
+          "ru": "Печать возобновлена",
+          "ko": "프린팅이 재개됨"
         },
         "args": [
           {
@@ -131,7 +211,17 @@
     {
       "name": {
         "en": "Adventurer 3 / 4",
-        "nl": "Adventurer 3 / 4"
+        "nl": "Adventurer 3 / 4",
+        "da": "Eventyrer 3 / 4",
+        "de": "Abenteurer 3 / 4",
+        "es": "Aventurero 3 / 4",
+        "fr": "Aventurier 3 / 4",
+        "it": "Avventuriero 3 / 4",
+        "no": "Eventyrer 3 / 4",
+        "sv": "Äventyrare 3 / 4",
+        "pl": "Poszukiwacz Przygód 3 / 4",
+        "ru": "Путешественник 3 / 4",
+        "ko": "모험가 3 / 4"
       },
       "class": "other",
       "capabilities": [
@@ -145,13 +235,33 @@
         "measure_temperature.bed": {
           "title": {
             "en": "Bed Temperature",
-            "nl": "Bed Temperatuur"
+            "nl": "Bed Temperatuur",
+            "da": "Sengtemperatur",
+            "de": "Betttemperatur",
+            "es": "Temperatura de la cama",
+            "fr": "Température du lit",
+            "it": "Temperatura del piano",
+            "no": "Sengtemperatur",
+            "sv": "Sängtemperatur",
+            "pl": "Temperatura łóżka",
+            "ru": "Температура стола",
+            "ko": "베드 온도"
           }
         },
         "measure_temperature.extruder": {
           "title": {
             "en": "Extruder Temperature",
-            "nl": "Extruder Temperatuur"
+            "nl": "Extruder Temperatuur",
+            "da": "Ekstruder temperatur",
+            "de": "Extrudertemperatur",
+            "es": "Temperatura del extrusor",
+            "fr": "Température de l'extrudeuse",
+            "it": "Temperatura dell'estrusore",
+            "no": "Ekstrudertemperatur",
+            "sv": "Extrudertemperatur",
+            "pl": "Temperatura ekstrudera",
+            "ru": "Температура экструдера",
+            "ko": "익스트루더 온도"
           }
         }
       },
@@ -178,12 +288,32 @@
           "type": "text",
           "label": {
             "en": "IP Address",
-            "nl": "IP adres"
+            "nl": "IP adres",
+            "da": "IP-adresse",
+            "de": "IP-Adresse",
+            "es": "Dirección IP",
+            "fr": "Adresse IP",
+            "it": "Indirizzo IP",
+            "no": "IP-adresse",
+            "sv": "IP-adress",
+            "pl": "Adres IP",
+            "ru": "IP адрес",
+            "ko": "IP 주소"
           },
           "value": "192.168.1.10",
           "hint": {
             "en": "This is the IP address of your printer.",
-            "nl": "Dit is het IP adres van je printer."
+            "nl": "Dit is het IP adres van je printer.",
+            "da": "Dette er IP-adressen til din printer.",
+            "de": "Dies ist die IP-Adresse Ihres Druckers.",
+            "es": "Esta es la dirección IP de tu impresora.",
+            "fr": "Ceci est l'adresse IP de votre imprimante.",
+            "it": "Questo è l'indirizzo IP della tua stampante.",
+            "no": "Dette er IP-adressen til skriveren din.",
+            "sv": "Detta är din skrivarens IP-adress.",
+            "pl": "To jest adres IP twojej drukarki.",
+            "ru": "Это IP адрес вашего принтера.",
+            "ko": "이것은 프린터의 IP 주소입니다."
           }
         }
       ]
@@ -191,7 +321,17 @@
     {
       "name": {
         "en": "Adventurer 5M / 5M PRO",
-        "nl": "Adventurer 5M / 5M PRO"
+        "nl": "Adventurer 5M / 5M PRO",
+        "da": "Eventyrer 5M / 5M PRO",
+        "de": "Abenteurer 5M / 5M PRO",
+        "es": "Aventurero 5M / 5M PRO",
+        "fr": "Aventurier 5M / 5M PRO",
+        "it": "Avventuriero 5M / 5M PRO",
+        "no": "Eventyrer 5M / 5M PRO",
+        "sv": "Äventyrare 5M / 5M PRO",
+        "pl": "Poszukiwacz przygód 5M / 5M PRO",
+        "ru": "Искатель приключений 5M / 5M PRO",
+        "ko": "모험가 5M / 5M PRO"
       },
       "class": "other",
       "capabilities": [
@@ -205,13 +345,33 @@
         "measure_temperature.bed": {
           "title": {
             "en": "Bed Temperature",
-            "nl": "Bed Temperatuur"
+            "nl": "Bed Temperatuur",
+            "da": "Seng Temperatuur",
+            "de": "Betttemperatur",
+            "es": "Temperatura de la cama",
+            "fr": "Température du lit",
+            "it": "Temperatura del letto",
+            "no": "Seng temperatur",
+            "sv": "Bäddtemperatur",
+            "pl": "Temperatura łóżka",
+            "ru": "Температура стола",
+            "ko": "침대 온도"
           }
         },
         "measure_temperature.extruder": {
           "title": {
             "en": "Extruder Temperature",
-            "nl": "Extruder Temperatuur"
+            "nl": "Extruder Temperatuur",
+            "da": "Ekstruder Temperatur",
+            "de": "Extrudertemperatur",
+            "es": "Temperatura del extrusor",
+            "fr": "Température de l'extrudeuse",
+            "it": "Temperatura dell'estrusore",
+            "no": "Ekstruder temperatur",
+            "sv": "Extrudertemperatur",
+            "pl": "Temperatura ekstrudera",
+            "ru": "Температура экструдера",
+            "ko": "압출기 온도"
           }
         }
       },
@@ -248,12 +408,32 @@
           "type": "text",
           "label": {
             "en": "IP Address",
-            "nl": "IP adres"
+            "nl": "IP adres",
+            "da": "IP-adresse",
+            "de": "IP-Adresse",
+            "es": "Dirección IP",
+            "fr": "Adresse IP",
+            "it": "Indirizzo IP",
+            "no": "IP-adresse",
+            "sv": "IP-adress",
+            "pl": "Adres IP",
+            "ru": "IP адрес",
+            "ko": "IP 주소"
           },
           "value": "192.168.1.10",
           "hint": {
             "en": "This is the IP address of your printer.",
-            "nl": "Dit is het IP adres van je printer."
+            "nl": "Dit is het IP adres van je printer.",
+            "da": "Dette er IP-adressen på din printer.",
+            "de": "Dies ist die IP-Adresse Ihres Druckers.",
+            "es": "Esta es la dirección IP de su impresora.",
+            "fr": "Ceci est l'adresse IP de votre imprimante.",
+            "it": "Questo è l'indirizzo IP della tua stampante.",
+            "no": "Dette er IP-adressen til skriveren din.",
+            "sv": "Detta är IP-adressen till din skrivare.",
+            "pl": "To jest adres IP twojej drukarki.",
+            "ru": "Это IP адрес вашего принтера.",
+            "ko": "이것은 프린터의 IP 주소입니다."
           }
         },
         {
@@ -261,12 +441,32 @@
           "type": "text",
           "label": {
             "en": "Printer ID",
-            "nl": "Printer ID"
+            "nl": "Printer ID",
+            "da": "Printer-id",
+            "de": "Drucker-ID",
+            "es": "ID de impresora",
+            "fr": "ID de l'imprimante",
+            "it": "ID stampante",
+            "no": "Printer-ID",
+            "sv": "Skrivar-ID",
+            "pl": "ID drukarki",
+            "ru": "ID принтера",
+            "ko": "프린터 ID"
           },
           "value": "2b80b80c",
           "hint": {
             "en": "This is your printer ID from the network tab, LAN mode enabled. This is needed for the newer API.",
-            "nl": "Dit is je printer-ID van het netwerktabblad, met LAN-modus ingeschakeld. Dit is nodig voor de nieuwere API."
+            "nl": "Dit is je printer-ID van het netwerktabblad, met LAN-modus ingeschakeld. Dit is nodig voor de nieuwere API.",
+            "da": "Dette er din printer-id fra netværksfanen, LAN-tilstand aktiveret. Dette er nødvendigt for den nyere API.",
+            "de": "Dies ist Ihre Drucker-ID aus dem Netzwerk-Tab, im LAN-Modus aktiviert. Dies ist für die neuere API erforderlich.",
+            "es": "Este es tu ID de impresora desde la pestaña de red, con modo LAN habilitado. Esto es necesario para la nueva API.",
+            "fr": "Ceci est votre ID d'imprimante à partir de l'onglet réseau, mode LAN activé. Ceci est nécessaire pour la nouvelle API.",
+            "it": "Questo è l'ID della tua stampante dalla scheda di rete, modalità LAN abilitata. Questo è necessario per la nuova API.",
+            "no": "Dette er skriver-IDen din fra nettverksfanen, med LAN-modus aktivert. Dette er nødvendig for den nyere API-en.",
+            "sv": "Detta är ditt skrivar-ID från nätverksfliken, med LAN-läge aktiverat. Detta behövs för det nyare API:et.",
+            "pl": "To jest Twój identyfikator drukarki z zakładki sieciowej, tryb LAN włączony. Jest to potrzebne do nowszego interfejsu API.",
+            "ru": "Это ваш ID принтера из сетевой вкладки, включен режим LAN. Это необходимо для нового API.",
+            "ko": "이것은 네트워크 탭에서 LAN 모드가 활성화된 프린터 ID입니다. 이는 최신 API에 필요합니다."
           }
         }
       ]
@@ -278,7 +478,17 @@
       "type": "boolean",
       "title": {
         "en": "Is online",
-        "nl": "Is online"
+        "nl": "Is online",
+        "da": "Er online",
+        "de": "Ist online",
+        "es": "Está en línea",
+        "fr": "Est en ligne",
+        "it": "È online",
+        "no": "Er online",
+        "sv": "Är online",
+        "pl": "Jest online",
+        "ru": "Онлайн",
+        "ko": "온라인 상태"
       },
       "getable": true,
       "setable": false,
@@ -289,7 +499,17 @@
       "type": "boolean",
       "title": {
         "en": "Printing",
-        "nl": "Printen"
+        "nl": "Printen",
+        "da": "Udskrivning",
+        "de": "Drucken",
+        "es": "Imprimiendo",
+        "fr": "Impression",
+        "it": "Stampa",
+        "no": "Utskrift",
+        "sv": "Skriver ut",
+        "pl": "Drukowanie",
+        "ru": "Печать",
+        "ko": "인쇄 중"
       },
       "getable": true,
       "setable": true,
@@ -299,13 +519,35 @@
       "id": "measure_print_percentage",
       "type": "number",
       "title": {
-        "en": "Print percentage"
+        "en": "Print percentage",
+        "nl": "Print percentage",
+        "da": "Udskriftsprocent",
+        "de": "Druckprozentsatz",
+        "es": "Porcentaje de impresión",
+        "fr": "Pourcentage d'impression",
+        "it": "Percentuale di stampa",
+        "no": "Utskriftsprosent",
+        "sv": "Utskriftsprocent",
+        "pl": "Procent wydruku",
+        "ru": "Процент печати",
+        "ko": "인쇄 백분율"
       },
       "uiComponent": "sensor",
       "getable": true,
       "setable": false,
       "units": {
-        "en": "%"
+        "en": "%",
+        "nl": "%",
+        "da": "%",
+        "de": "%",
+        "es": "%",
+        "fr": "%",
+        "it": "%",
+        "no": "%",
+        "sv": "%",
+        "pl": "%",
+        "ru": "%",
+        "ko": "%"
       },
       "min": 0,
       "max": 100,

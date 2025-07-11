@@ -1,28 +1,68 @@
 [
-    {
-        "id": "ipAddress",
-        "type": "text",
-        "label": {
-            "en": "IP Address",
-            "nl": "IP adres"
-        },
-        "value": "192.168.1.10",
-        "hint": {
-            "en": "This is the IP address of your printer.",
-            "nl": "Dit is het IP adres van je printer."
-        }
+  {
+    "id": "ipAddress",
+    "type": "text",
+    "label": {
+      "en": "IP Address",
+      "nl": "IP adres",
+      "da": "IP-adresse",
+      "de": "IP-Adresse",
+      "es": "Dirección IP",
+      "fr": "Adresse IP",
+      "it": "Indirizzo IP",
+      "no": "IP-adresse",
+      "sv": "IP-adress",
+      "pl": "Adres IP",
+      "ru": "IP адрес",
+      "ko": "IP 주소"
     },
-    {
-        "id": "checkCode",
-        "type": "text",
-        "label": {
-            "en": "Printer ID",
-            "nl": "Printer ID"
-        },
-        "value": "2b80b80c",
-        "hint": {
-            "en": "This is your printer ID from the network tab, LAN mode enabled. This is needed for the newer API.",
-            "nl": "Dit is je printer-ID van het netwerktabblad, met LAN-modus ingeschakeld. Dit is nodig voor de nieuwere API."
-        }
+    "value": "192.168.1.10",
+    "hint": {
+      "en": "This is the IP address of your printer.",
+      "nl": "Dit is het IP adres van je printer.",
+      "da": "Dette er IP-adressen på din printer.",
+      "de": "Dies ist die IP-Adresse Ihres Druckers.",
+      "es": "Esta es la dirección IP de su impresora.",
+      "fr": "Ceci est l'adresse IP de votre imprimante.",
+      "it": "Questo è l'indirizzo IP della tua stampante.",
+      "no": "Dette er IP-adressen til skriveren din.",
+      "sv": "Detta är IP-adressen till din skrivare.",
+      "pl": "To jest adres IP twojej drukarki.",
+      "ru": "Это IP адрес вашего принтера.",
+      "ko": "이것은 프린터의 IP 주소입니다."
     }
+  },
+  {
+    "id": "checkCode",
+    "type": "text",
+    "label": {
+      "en": "Printer ID",
+      "nl": "Printer ID",
+      "da": "Printer-id",
+      "de": "Drucker-ID",
+      "es": "ID de impresora",
+      "fr": "ID de l'imprimante",
+      "it": "ID stampante",
+      "no": "Printer-ID",
+      "sv": "Skrivar-ID",
+      "pl": "ID drukarki",
+      "ru": "ID принтера",
+      "ko": "프린터 ID"
+    },
+    "value": "2b80b80c",
+    "hint": {
+      "en": "This is your printer ID from the network tab, LAN mode enabled. This is needed for the newer API.",
+      "nl": "Dit is je printer-ID van het netwerktabblad, met LAN-modus ingeschakeld. Dit is nodig voor de nieuwere API.",
+      "da": "Dette er din printer-id fra netværksfanen, LAN-tilstand aktiveret. Dette er nødvendigt for den nyere API.",
+      "de": "Dies ist Ihre Drucker-ID aus dem Netzwerk-Tab, im LAN-Modus aktiviert. Dies ist für die neuere API erforderlich.",
+      "es": "Este es tu ID de impresora desde la pestaña de red, con modo LAN habilitado. Esto es necesario para la nueva API.",
+      "fr": "Ceci est votre ID d'imprimante à partir de l'onglet réseau, mode LAN activé. Ceci est nécessaire pour la nouvelle API.",
+      "it": "Questo è l'ID della tua stampante dalla scheda di rete, modalità LAN abilitata. Questo è necessario per la nuova API.",
+      "no": "Dette er skriver-IDen din fra nettverksfanen, med LAN-modus aktivert. Dette er nødvendig for den nyere API-en.",
+      "sv": "Detta är ditt skrivar-ID från nätverksfliken, med LAN-läge aktiverat. Detta behövs för det nyare API:et.",
+      "pl": "To jest Twój identyfikator drukarki z zakładki sieciowej, tryb LAN włączony. Jest to potrzebne do nowszego interfejsu API.",
+      "ru": "Это ваш ID принтера из сетевой вкладки, включен режим LAN. Это необходимо для нового API.",
+      "ko": "이것은 네트워크 탭에서 LAN 모드가 활성화된 프린터 ID입니다. 이는 최신 API에 필요합니다."
+    }
+  }
 ]

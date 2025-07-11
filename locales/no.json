@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "ip_address": "IP-adresse",
+    "checkcode": {
+      "description": "Oppgi din Printer ID, som du finner under Innstillinger > Nettverksmodus."
+    },
+    "title": "FlashForge Adventurer",
+    "subtitle": "Legg til en ny 3D-printer",
+    "add_device": "Legg til enhet"
+  }
+}

@@ -1,11 +1,21 @@
 {
-    "id": "is_printing",
-    "type": "boolean",
-    "title": { 
-      "en": "Printing",
-      "nl": "Printen"
-    },
-    "getable": true,
-    "setable": true,
-    "uiComponent": "button"
-  }
+  "id": "is_printing",
+  "type": "boolean",
+  "title": {
+    "en": "Printing",
+    "nl": "Printen",
+    "da": "Udskrivning",
+    "de": "Drucken",
+    "es": "Imprimiendo",
+    "fr": "Impression",
+    "it": "Stampa",
+    "no": "Utskrift",
+    "sv": "Skriver ut",
+    "pl": "Drukowanie",
+    "ru": "Печать",
+    "ko": "인쇄 중"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "button"
+}

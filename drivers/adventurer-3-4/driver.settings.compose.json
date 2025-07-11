@@ -1,15 +1,35 @@
 [
-    {
-        "id": "ipAddress",
-        "type": "text",
-        "label": {
-            "en": "IP Address",
-            "nl": "IP adres"
-        },
-        "value": "192.168.1.10",
-        "hint": {
-            "en": "This is the IP address of your printer.",
-            "nl": "Dit is het IP adres van je printer."
-        }
+  {
+    "id": "ipAddress",
+    "type": "text",
+    "label": {
+      "en": "IP Address",
+      "nl": "IP adres",
+      "da": "IP-adresse",
+      "de": "IP-Adresse",
+      "es": "Dirección IP",
+      "fr": "Adresse IP",
+      "it": "Indirizzo IP",
+      "no": "IP-adresse",
+      "sv": "IP-adress",
+      "pl": "Adres IP",
+      "ru": "IP адрес",
+      "ko": "IP 주소"
+    },
+    "value": "192.168.1.10",
+    "hint": {
+      "en": "This is the IP address of your printer.",
+      "nl": "Dit is het IP adres van je printer.",
+      "da": "Dette er IP-adressen til din printer.",
+      "de": "Dies ist die IP-Adresse Ihres Druckers.",
+      "es": "Esta es la dirección IP de tu impresora.",
+      "fr": "Ceci est l'adresse IP de votre imprimante.",
+      "it": "Questo è l'indirizzo IP della tua stampante.",
+      "no": "Dette er IP-adressen til skriveren din.",
+      "sv": "Detta är din skrivarens IP-adress.",
+      "pl": "To jest adres IP twojej drukarki.",
+      "ru": "Это IP адрес вашего принтера.",
+      "ko": "이것은 프린터의 IP 주소입니다."
     }
+  }
 ]

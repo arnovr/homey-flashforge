@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "ip_address": "IP-Adresse",
+    "checkcode": {
+      "description": "Gib deine Drucker-ID ein, die du unter Einstellungen > Netzwerkmodus findest."
+    },
+    "title": "FlashForge Abenteurer",
+    "subtitle": "Füge einen neuen 3D-Drucker hinzu",
+    "add_device": "Gerät hinzufügen"
+  }
+}

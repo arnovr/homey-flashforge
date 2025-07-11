@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "ip_address": "Dirección IP",
+    "checkcode": {
+      "description": "Ingresa tu ID de Impresora, que puedes encontrar en Configuración > Modo de Red."
+    },
+    "title": "FlashForge Adventurer",
+    "subtitle": "Agregar una nueva impresora 3d",
+    "add_device": "Agregar dispositivo"
+  }
+}

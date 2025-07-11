@@ -1,0 +1,3 @@
+Lleva tu impresión 3D al siguiente nivel conectando tu FlashForge Adventurer 3, 4, 5M o 5M Pro a Homey. Mantente al tanto de tus impresiones desde cualquier lugar, sigue el progreso en tiempo real, monitorea las temperaturas, y pausa o detén trabajos con solo un toque.
+
+Ya sea que estés imprimiendo prototipos o proyectos de hobby, esta integración brinda información y control en tiempo real a tu experiencia de impresión 3D.

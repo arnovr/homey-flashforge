@@ -9,11 +9,31 @@
   "brandColor": "#00A0E9",
   "name": {
     "en": "FlashForge",
-    "nl": "FlashForge"
+    "nl": "FlashForge",
+    "da": "FlashForge",
+    "de": "FlashForge",
+    "es": "FlashForge",
+    "fr": "FlashForge",
+    "it": "FlashForge",
+    "no": "FlashForge",
+    "sv": "FlashForge",
+    "pl": "FlashForge",
+    "ru": "FlashForge",
+    "ko": "FlashForge"
   },
   "description": {
     "en": "Connect to your FlashForge Adventurer 3d printers",
-    "nl": "Verbind met je FlashForge Adventurer 3d printers"
+    "nl": "Verbind met je FlashForge Adventurer 3d printers",
+    "da": "Opret forbindelse til dine FlashForge Adventurer 3d-printere",
+    "de": "Verbinden Sie sich mit Ihren FlashForge Adventurer 3D-Druckern",
+    "es": "Conéctate a tus impresoras 3D FlashForge Adventurer",
+    "fr": "Connectez-vous à vos imprimantes 3D FlashForge Adventurer",
+    "it": "Collegati alle tue stampanti 3D FlashForge Adventurer",
+    "no": "Koble til dine FlashForge Adventurer 3D-skrivere",
+    "sv": "Anslut till dina FlashForge Adventurer 3D-skrivare",
+    "pl": "Podłącz się do swoich drukarek 3D FlashForge Adventurer",
+    "ru": "Подключитесь к вашим 3D-принтерам FlashForge Adventurer",
+    "ko": "FlashForge Adventurer 3D 프린터에 연결하세요"
   },
   "category": [
     "appliances"

@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "ip_address": "IP адрес",
+    "checkcode": {
+      "description": "Введите ваш Printer ID, который можно найти в разделе Настройки > Режим сети."
+    },
+    "title": "FlashForge Adventurer",
+    "subtitle": "Добавить новый 3D-принтер",
+    "add_device": "Добавить устройство"
+  }
+}
