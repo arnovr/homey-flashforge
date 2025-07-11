@@ -46,5 +46,8 @@
   },
   "0.0.16": {
     "en": "Fix the problems of the error when creating a device. And add dutch"
+  },
+  "0.0.17": {
+    "en": "Automatically added translations, as advised by athom"
   }
 }
