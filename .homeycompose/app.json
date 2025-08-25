@@ -1,6 +1,6 @@
 {
   "id": "nl.arnovanrossum.flashforge",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
