@@ -19,8 +19,9 @@ export class FlashForgeManualDriver extends Homey.Driver {
             if(connected) {
               await client.disconnect();
             }
-
-            return connected;
+            
+            const printerName = await client.getPrinterName();
+            return printerName;
         }
         catch {
           return "";

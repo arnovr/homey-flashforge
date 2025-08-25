@@ -53,15 +53,23 @@
             addButton.classList.remove('is-loading');
             return;
           }
-  
+
           const deviceData = {
-            id: ip.replace(/\./g, '_'),
             name: printerName,
-            data: { ip }
+            data: { serialNumber: "" },
+            settings: {
+              ipAddress: ip,
+              checkCode: "",
+            }
           };
-  
-          await Homey.createDevice(deviceData);
-          Homey.done();
+
+          Homey.createDevice(deviceData)
+            .then(function (result) {
+                Homey.done();
+            })
+            .catch(function (error) {
+                Homey.alert(error);
+            });
         }).catch((error) => {
           ipInput.classList.add('has-error');
           errorContainer.textContent = error.message || error.toString();
