@@ -17,16 +17,21 @@ export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
       const extruderTemp = temp?.getExtruderTemp?.()?.getCurrent?.() ?? 0;
   
       return {
-        isPrinting: printPercent > 0,
+        isPrinting: this.checkIsPrinting(printPercent),
         printPercent: printPercent,
         bedTemp,
         extruderTemp
       };
     }
 
+    private checkIsPrinting(printPercent: number): boolean {
+      return printPercent > 0 && printPercent < 100;
+    }
+
     private getPrintPercent(status: PrintStatus): number {
       // The format is "current/total"
       const [current, total] = status.getSdProgress().split("/");
+      if(isNaN(parseInt(current)) || isNaN(parseInt(total))) return 0;
       return parseInt(current) / parseInt(total) * 100;
     }
   
@@ -43,7 +48,7 @@ export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
       if(!status) return false;
       
       const percent = this.getPrintPercent(status);
-      return typeof percent === 'number' && percent < 100;
+      return this.checkIsPrinting(percent);
     }
   
     async getPrinterName(): Promise<string> {

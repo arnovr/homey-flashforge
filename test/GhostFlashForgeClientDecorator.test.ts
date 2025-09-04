@@ -41,7 +41,6 @@ describe('GhostFlashForgeClientDecorator', () => {
       };
 
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(75),
         getSdProgress: jest.fn().mockReturnValue("75/100")
       };
 
@@ -87,7 +86,6 @@ describe('GhostFlashForgeClientDecorator', () => {
 
     it('should handle missing temperature info gracefully', async () => {
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(50),
         getSdProgress: jest.fn().mockReturnValue("50/100")
       };
 
@@ -104,7 +102,7 @@ describe('GhostFlashForgeClientDecorator', () => {
       });
     });
 
-    it('should handle NaN print percent', async () => {
+    it('should handle invalid SD progress format', async () => {
       const mockTempInfo = {
         getBedTemp: jest.fn().mockReturnValue({
           getCurrent: jest.fn().mockReturnValue(30)
@@ -115,7 +113,7 @@ describe('GhostFlashForgeClientDecorator', () => {
       };
 
       const mockPrintStatus = {
-        getSdProgress: jest.fn().mockReturnValue("0/100")
+        getSdProgress: jest.fn().mockReturnValue("invalid/format")
       };
 
       mockClient.getTempInfo.mockResolvedValue(mockTempInfo);
@@ -181,9 +179,21 @@ describe('GhostFlashForgeClientDecorator', () => {
       expect(result).toBe(false);
     });
 
+    it('should return false when print percent is 0', async () => {
+      const mockPrintStatus = {
+        getSdProgress: jest.fn().mockReturnValue("0/100")
+      };
+
+      mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
+
+      const result = await decorator.isPrinting();
+
+      expect(result).toBe(false);
+    });
+
     it('should return false when print percent is not a number', async () => {
       const mockPrintStatus = {
-        getSdProgress: jest.fn().mockReturnValue('invalid')
+        getSdProgress: jest.fn().mockReturnValue('invalid/format')
       };
 
       mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
