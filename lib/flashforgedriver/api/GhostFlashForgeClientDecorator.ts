@@ -8,16 +8,20 @@ export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
       const temp = await this.client.getTempInfo();
       const status = await this.client.getPrintStatus();
   
-      const printPercent = status?.getPrintPercent?.() ?? 0;
+      const printPercent = status?.getPrintPercent?.();
       const bedTemp = temp?.getBedTemp?.()?.getCurrent?.() ?? 0;
       const extruderTemp = temp?.getExtruderTemp?.()?.getCurrent?.() ?? 0;
   
       return {
         isPrinting: typeof printPercent === 'number' && !isNaN(printPercent),
-        printPercent,
+        printPercent: printPercent ?? 0,
         bedTemp,
         extruderTemp
       };
+    }
+
+    private getPrintPercent(): number {
+      return 0;
     }
   
     async pause() {

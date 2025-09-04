@@ -61,6 +61,7 @@ export class FlashForgeDevice extends Homey.Device {
 
     try { 
       const status = await this.client.getStatus();
+
       this.online();
       this.updateTemperatures(status)
       
