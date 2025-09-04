@@ -52,5 +52,8 @@
   },
   "0.0.18": {
     "en": "Properly return the printername, also fix the object for the device creation"
+  },
+  "0.0.19": {
+    "en": "Bring the test case when the extruder does not exceed 70."
   }
 }
