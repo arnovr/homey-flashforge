@@ -29,15 +29,6 @@ describe('GhostFlashForgeClientDecorator', () => {
     jest.clearAllMocks();
   });
 
-  describe('getPrintPercent', () => {
-    it('should return 0 (private method)', () => {
-      // Since getPrintPercent is private, we can't test it directly
-      // But we can test its behavior through the getStatus method
-      const result = (decorator as any).getPrintPercent();
-      expect(result).toBe(0);
-    });
-  });
-
   describe('getStatus', () => {
     it('should return status with print percent from client', async () => {
       const mockTempInfo = {
@@ -50,7 +41,8 @@ describe('GhostFlashForgeClientDecorator', () => {
       };
 
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(75)
+        getPrintPercent: jest.fn().mockReturnValue(75),
+        getSdProgress: jest.fn().mockReturnValue("75/100")
       };
 
       mockClient.getTempInfo.mockResolvedValue(mockTempInfo);
@@ -67,7 +59,7 @@ describe('GhostFlashForgeClientDecorator', () => {
 
       expect(mockClient.getTempInfo).toHaveBeenCalled();
       expect(mockClient.getPrintStatus).toHaveBeenCalled();
-      expect(mockPrintStatus.getPrintPercent).toHaveBeenCalled();
+      expect(mockPrintStatus.getSdProgress).toHaveBeenCalled();
     });
 
     it('should handle missing print status gracefully', async () => {
@@ -95,7 +87,8 @@ describe('GhostFlashForgeClientDecorator', () => {
 
     it('should handle missing temperature info gracefully', async () => {
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(50)
+        getPrintPercent: jest.fn().mockReturnValue(50),
+        getSdProgress: jest.fn().mockReturnValue("50/100")
       };
 
       mockClient.getTempInfo.mockResolvedValue(null);
@@ -122,7 +115,7 @@ describe('GhostFlashForgeClientDecorator', () => {
       };
 
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(NaN)
+        getSdProgress: jest.fn().mockReturnValue("0/100")
       };
 
       mockClient.getTempInfo.mockResolvedValue(mockTempInfo);
@@ -132,7 +125,7 @@ describe('GhostFlashForgeClientDecorator', () => {
 
       expect(result).toEqual({
         isPrinting: false,
-        printPercent: NaN,
+        printPercent: 0,
         bedTemp: 30,
         extruderTemp: 30
       });
@@ -145,7 +138,7 @@ describe('GhostFlashForgeClientDecorator', () => {
       };
 
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(25)
+        getSdProgress: jest.fn().mockReturnValue("25/100")
       };
 
       mockClient.getTempInfo.mockResolvedValue(mockTempInfo);
@@ -165,7 +158,7 @@ describe('GhostFlashForgeClientDecorator', () => {
   describe('isPrinting', () => {
     it('should return true when print percent is less than 100', async () => {
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(75)
+        getSdProgress: jest.fn().mockReturnValue("75/100")
       };
 
       mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
@@ -173,13 +166,12 @@ describe('GhostFlashForgeClientDecorator', () => {
       const result = await decorator.isPrinting();
 
       expect(result).toBe(true);
-      expect(mockClient.getPrintStatus).toHaveBeenCalled();
-      expect(mockPrintStatus.getPrintPercent).toHaveBeenCalled();
+      expect(mockPrintStatus.getSdProgress).toHaveBeenCalled();
     });
 
     it('should return false when print percent is 100', async () => {
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue(100)
+        getSdProgress: jest.fn().mockReturnValue("100/100")
       };
 
       mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
@@ -191,7 +183,7 @@ describe('GhostFlashForgeClientDecorator', () => {
 
     it('should return false when print percent is not a number', async () => {
       const mockPrintStatus = {
-        getPrintPercent: jest.fn().mockReturnValue('invalid')
+        getSdProgress: jest.fn().mockReturnValue('invalid')
       };
 
       mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);

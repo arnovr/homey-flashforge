@@ -1,4 +1,4 @@
-import { FlashForgeClient } from "ff-5mp-api-ts";
+import { FlashForgeClient, PrintStatus } from "ff-5mp-api-ts";
 import { FlashForgeStatus, NormalizedPrinterClient } from "./FlashForgeClient";
 
 export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
@@ -8,20 +8,26 @@ export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
       const temp = await this.client.getTempInfo();
       const status = await this.client.getPrintStatus();
   
-      const printPercent = status?.getPrintPercent?.();
+      let printPercent = 0;
+      if(status) {
+        printPercent = this.getPrintPercent(status);
+      }
+
       const bedTemp = temp?.getBedTemp?.()?.getCurrent?.() ?? 0;
       const extruderTemp = temp?.getExtruderTemp?.()?.getCurrent?.() ?? 0;
   
       return {
-        isPrinting: typeof printPercent === 'number' && !isNaN(printPercent),
-        printPercent: printPercent ?? 0,
+        isPrinting: printPercent > 0,
+        printPercent: printPercent,
         bedTemp,
         extruderTemp
       };
     }
 
-    private getPrintPercent(): number {
-      return 0;
+    private getPrintPercent(status: PrintStatus): number {
+      // The format is "current/total"
+      const [current, total] = status.getSdProgress().split("/");
+      return parseInt(current) / parseInt(total) * 100;
     }
   
     async pause() {
@@ -34,7 +40,9 @@ export class GhostFlashForgeClientDecorator implements NormalizedPrinterClient {
   
     async isPrinting(): Promise<boolean> {
       const status = await this.client.getPrintStatus();
-      const percent = status?.getPrintPercent?.();
+      if(!status) return false;
+      
+      const percent = this.getPrintPercent(status);
       return typeof percent === 'number' && percent < 100;
     }
   
