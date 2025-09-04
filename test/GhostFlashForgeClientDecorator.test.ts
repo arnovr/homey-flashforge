@@ -156,8 +156,12 @@ describe('GhostFlashForgeClientDecorator', () => {
 
     it('should be printing when extruder temperature exceeds 70', async () => {
       const mockTempInfo = {
-        getBedTemp: jest.fn().mockReturnValue(39),
-        getExtruderTemp: jest.fn().mockReturnValue(71)
+        getBedTemp: jest.fn().mockReturnValue({
+          getCurrent: jest.fn().mockReturnValue(39)
+        }),
+        getExtruderTemp: jest.fn().mockReturnValue({
+          getCurrent: jest.fn().mockReturnValue(71)
+        })
       };
 
       const mockPrintStatus = {
