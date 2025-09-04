@@ -151,66 +151,33 @@ describe('GhostFlashForgeClientDecorator', () => {
         extruderTemp: 0
       });
     });
-  });
 
-  describe('isPrinting', () => {
-    it('should return true when print percent is less than 100', async () => {
-      const mockPrintStatus = {
-        getSdProgress: jest.fn().mockReturnValue("75/100")
+
+
+    it('should be printing when extruder temperature exceeds 70', async () => {
+      const mockTempInfo = {
+        getBedTemp: jest.fn().mockReturnValue(39),
+        getExtruderTemp: jest.fn().mockReturnValue(71)
       };
 
-      mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
-
-      const result = await decorator.isPrinting();
-
-      expect(result).toBe(true);
-      expect(mockPrintStatus.getSdProgress).toHaveBeenCalled();
-    });
-
-    it('should return false when print percent is 100', async () => {
-      const mockPrintStatus = {
-        getSdProgress: jest.fn().mockReturnValue("100/100")
-      };
-
-      mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
-
-      const result = await decorator.isPrinting();
-
-      expect(result).toBe(false);
-    });
-
-    it('should return false when print percent is 0', async () => {
       const mockPrintStatus = {
         getSdProgress: jest.fn().mockReturnValue("0/100")
       };
 
+      mockClient.getTempInfo.mockResolvedValue(mockTempInfo);
       mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
 
-      const result = await decorator.isPrinting();
+      const result = await decorator.getStatus();
 
-      expect(result).toBe(false);
-    });
-
-    it('should return false when print percent is not a number', async () => {
-      const mockPrintStatus = {
-        getSdProgress: jest.fn().mockReturnValue('invalid/format')
-      };
-
-      mockClient.getPrintStatus.mockResolvedValue(mockPrintStatus);
-
-      const result = await decorator.isPrinting();
-
-      expect(result).toBe(false);
-    });
-
-    it('should return false when print status is null', async () => {
-      mockClient.getPrintStatus.mockResolvedValue(null);
-
-      const result = await decorator.isPrinting();
-
-      expect(result).toBe(false);
+      expect(result).toEqual({
+        isPrinting: true,
+        printPercent: 0,
+        bedTemp: 39,
+        extruderTemp: 71
+      });
     });
   });
+
 
   describe('pause', () => {
     it('should call client pauseJob method', async () => {
